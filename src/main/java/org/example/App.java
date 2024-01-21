@@ -3,10 +3,7 @@ package org.example;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class App {
 
@@ -38,6 +35,33 @@ public class App {
             System.out.println(e.getMessage());
         }
     }
+    public void insertIntoProfesor(int id, String nume, String Prenume, String username, String parola){
+        String sql = "INSERT INTO \"Profesor\"(\"ID_Profesor\", \"Nume\", \"Prenume\", \"Username\", \"Parola\") VALUES(?,?,?,?,?)";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            pstmt.setString(2, nume);
+            pstmt.setString(3, Prenume);
+            pstmt.setString(4, username);
+            pstmt.setString(5, parola);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public void insertIntoDisciplina(int ID_Disciplina, double medie, int idProfesor, String numeDisciplina){
+        String sql = "INSERT INTO \"Disciplina\"(\"ID_Disciplina\",\"Medie\",\"ID_Profesor\",\"Nume_disciplina\") VALUES(?,?,?,?)";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, ID_Disciplina);
+            pstmt.setDouble(2, medie);
+            pstmt.setInt(3, idProfesor);
+            pstmt.setString(4, numeDisciplina);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     public void insertDataFromFile(String filePath) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -60,12 +84,29 @@ public class App {
             e.printStackTrace();
         }
     }
+    public void insertNota(int idStudent, int ID_Disciplina, int nota) {
+        String sql = "INSERT INTO \"Note\"(\"ID_Disciplina\",\"ID_Student\", \"Data\",\"Nota\") VALUES(?,?,?,?)";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, ID_Disciplina);
+            pstmt.setInt(2, idStudent);
+            pstmt.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+            pstmt.setInt(4, nota);
+
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     public static void main(String[] args) throws SQLException {
         App app = new App();
         app.connect();
 
         // Call the method to insert data from a file into the database
-        app.insertDataFromFile("C:\\Users\\dutua\\OneDrive\\Desktop\\MIP2\\src\\main\\java\\org\\example\\date.txt");
+        //app.insertDataFromFile("C:\\Users\\dutua\\OneDrive\\Desktop\\MIP2\\src\\main\\java\\org\\example\\date.txt");
+       // app.insertIntoProfesor(1,"Moisescu","Andrei","moisescuandrei","1238");
+        //app.insertIntoDisciplina(1,10,1,"MIP");
+       // app.insertNota(1,1,10);
     }
 }

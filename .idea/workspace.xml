@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ed1e95a4-aedb-4c56-bdef-26614b70a25a" name="Changes" comment="working db">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/date.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+    <list default="true" id="ed1e95a4-aedb-4c56-bdef-26614b70a25a" name="Changes" comment="citire din fisier db si fisier text">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/App.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Database.java" afterDir="false" />
@@ -66,7 +63,8 @@
       <updated>1705679163741</updated>
       <workItem from="1705679164635" duration="428000" />
       <workItem from="1705842039988" duration="536000" />
-      <workItem from="1705842592150" duration="1097000" />
+      <workItem from="1705842592150" duration="3123000" />
+      <workItem from="1705867168884" duration="1365000" />
     </task>
     <task id="LOCAL-00001" summary="not working db">
       <option name="closed" value="true" />
@@ -84,7 +82,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705687608792</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="citire din fisier db si fisier text">
+      <option name="closed" value="true" />
+      <created>1705845122120</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1705845122120</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -93,7 +99,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="not working db" />
     <MESSAGE value="working db" />
-    <option name="LAST_COMMIT_MESSAGE" value="working db" />
+    <MESSAGE value="citire din fisier db si fisier text" />
+    <option name="LAST_COMMIT_MESSAGE" value="citire din fisier db si fisier text" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
