@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="Connection" uuid="45b6348e-6083-400a-9e38-78e2f19fa12f">
+    <data-source source="LOCAL" name="conn" uuid="45b6348e-6083-400a-9e38-78e2f19fa12f">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/NoteCatalog</jdbc-url>
+      <jdbc-url>jdbc:postgresql://localhost:5432/ProiectMIP</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

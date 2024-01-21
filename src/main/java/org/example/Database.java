@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class Database {
-    final String url = "jdbc:postgresql://localhost:5432/NoteCatalog";
+    final String url = "jdbc:postgresql://localhost:5432/ProiectMIP" ;
     final String user = "postgres";
     final String password = "1q2w3e";
 
