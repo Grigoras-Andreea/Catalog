@@ -3,7 +3,7 @@ package org.example;
 import java.sql.*;
 
 public class Database {
-    final String url = "jdbc:postgresql://localhost:5432/ProiectMIP" ;
+    final String url = "jdbc:postgresql://localhost:5432/NoteCatalog" ;
     final String user = "postgres";
     final String password = "1q2w3e";
 
@@ -46,18 +46,48 @@ public class Database {
             }
         }
 
-    public int studentLogIn(String username, String parola){
+    public int studentLogIn(String username, String parola) {
         String sql = "SELECT * FROM \"Student\" WHERE \"Username\" = ? AND \"Parola\" = ?";
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, username);
             pstmt.setString(2, parola);
-            pstmt.executeUpdate();
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    // Login successful, return the student ID
+                    return rs.getInt("ID_Student");
+                } else {
+                    // Login failed
+                    return -1;
+                }
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            return -1;
         }
-        return 0;
     }
 
+    public int profesorLogIn(String username, String parola) {
+        String sql = "SELECT * FROM \"Profesor\" WHERE \"Username\" = ? AND \"Parola\" = ?";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, username);
+            pstmt.setString(2, parola);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    // Login successful, return the profesor ID
+                    return rs.getInt("ID_Profesor");
+                } else {
+                    // Login failed
+                    return -1;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return -1;
+        }
+    }
 
 }

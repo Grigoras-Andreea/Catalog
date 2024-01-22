@@ -100,13 +100,17 @@ public class App {
     }
 
     public static void main(String[] args) throws SQLException {
-        App app = new App();
-        app.connect();
+        /*App app = new App();
+        app.connect();*/
 
         // Call the method to insert data from a file into the database
         //app.insertDataFromFile("C:\\Users\\dutua\\OneDrive\\Desktop\\MIP2\\src\\main\\java\\org\\example\\date.txt");
        // app.insertIntoProfesor(1,"Moisescu","Andrei","moisescuandrei","1238");
         //app.insertIntoDisciplina(1,10,1,"MIP");
        // app.insertNota(1,1,10);
+
+        Database db = new Database();
+        db.connect();
+        System.out.println(db.profesorLogIn("popescuion","1234"));
     }
 }
