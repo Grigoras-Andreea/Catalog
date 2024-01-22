@@ -47,6 +47,9 @@ public class App {
                     else{
                         System.out.println("Logare cu succes!");
                         //meniu student
+                        //while
+                        //optiuni
+                        //exit - break
                     }
                 }
                 else if(optiune2 == 2){
@@ -62,6 +65,57 @@ public class App {
                         System.out.println("Logare cu succes!");
                         //meniu profesor
                     }
+                }
+                else{
+                    System.out.println("Optiune invalida!");
+                }
+            }
+            else if(optiune == 2){
+                System.out.println("1. Student");
+                System.out.println("2. Profesor");
+                System.out.println("3. Exit");
+                System.out.println("Introduceti optiunea: ");
+                int optiune2 = scanner.nextInt();
+                if(optiune2 == 1){
+                    int id = db.GetStudentLastID();
+                    System.out.println("Introduceti nume: ");
+                    String nume = scanner.next();
+                    System.out.println("Introduceti prenume: ");
+                    String prenume = scanner.next();
+                    System.out.println("Introduceti username: ");
+                    String username = scanner.next();
+                    if(db.checkIfUsernameExists(username)){
+                        System.out.println("Username-ul exista deja!");
+                    }
+                    else{
+                        System.out.println("Introduceti parola: ");
+                        String parola = scanner.next();
+                        System.out.println("Introduceti anul: ");
+                        int an = scanner.nextInt();
+                        db.insertIntoStudent(id + 1, nume, prenume, an, username, parola);
+                        System.out.println("Inregistrare cu succes!");
+                    }
+                }
+                else if(optiune2 == 2){
+                    int id = db.GetProfesorLastID();
+                    System.out.println("Introduceti nume: ");
+                    String nume = scanner.next();
+                    System.out.println("Introduceti prenume: ");
+                    String prenume = scanner.next();
+                    System.out.println("Introduceti username: ");
+                    String username = scanner.next();
+                    if(db.checkIfUsernameExists(username)){
+                        System.out.println("Username-ul exista deja!");
+                    }
+                    else{
+                        System.out.println("Introduceti parola: ");
+                        String parola = scanner.next();
+                        db.insertIntoProfesor(id + 1, nume, prenume, username, parola);
+                        System.out.println("Inregistrare cu succes!");
+                    }
+                }
+                else if(optiune2 == 3){
+                    System.out.println("Comanda efectuata cu succes!");
                 }
                 else{
                     System.out.println("Optiune invalida!");

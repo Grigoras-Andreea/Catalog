@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ed1e95a4-aedb-4c56-bdef-26614b70a25a" name="Changes" comment="made log-in for student and professor">
+    <list default="true" id="ed1e95a4-aedb-4c56-bdef-26614b70a25a" name="Changes" comment="moved some functions and started menu">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/App.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Database.java" afterDir="false" />
@@ -98,7 +98,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705925435048</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="moved some functions and started menu">
+      <option name="closed" value="true" />
+      <created>1705926872972</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1705926872972</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -120,7 +128,8 @@
     <MESSAGE value="working db" />
     <MESSAGE value="citire din fisier db si fisier text" />
     <MESSAGE value="made log-in for student and professor" />
-    <option name="LAST_COMMIT_MESSAGE" value="made log-in for student and professor" />
+    <MESSAGE value="moved some functions and started menu" />
+    <option name="LAST_COMMIT_MESSAGE" value="moved some functions and started menu" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

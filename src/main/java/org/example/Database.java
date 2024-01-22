@@ -18,6 +18,53 @@ public class Database {
     public Connection connect() throws SQLException {
         return DriverManager.getConnection(url, user, password);
     }
+
+    private boolean checkIfUsernameExistsForStudent(String username) {
+        String sql = "SELECT * FROM \"Student\" WHERE \"Username\" = ?";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, username);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    // Username already exists
+                    return true;
+                } else {
+                    // Username does not exist
+                    return false;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    private boolean checkIfUsernameExistsForProfesor(String username) {
+        String sql = "SELECT * FROM \"Profesor\" WHERE \"Username\" = ?";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, username);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    // Username already exists
+                    return true;
+                } else {
+                    // Username does not exist
+                    return false;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean checkIfUsernameExists(String username) {
+        return checkIfUsernameExistsForStudent(username) || checkIfUsernameExistsForProfesor(username);
+    }
+
     public void insertIntoStudent(int id, String nume, String Prenume, int an, String username, String parola){
         String sql = "INSERT INTO \"Student\"(\"ID_Student\", \"Nume\", \"Prenume\", \"An_Studii\", \"Username\", \"Parola\") VALUES(?,?,?,?,?,?)";
         try (Connection conn = this.connect();
@@ -135,6 +182,44 @@ public class Database {
                     return rs.getInt("ID_Profesor");
                 } else {
                     // Login failed
+                    return -1;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return -1;
+        }
+    }
+
+    public int GetStudentLastID(){
+        String sql = "SELECT * FROM \"Student\" ORDER BY \"ID_Student\" DESC LIMIT 1";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+
+                    return rs.getInt("ID_Student");
+                } else {
+
+                    return -1;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return -1;
+        }
+    }
+
+    public int GetProfesorLastID(){
+        String sql = "SELECT * FROM \"Profesor\" ORDER BY \"ID_Profesor\" DESC LIMIT 1";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+
+                    return rs.getInt("ID_Profesor");
+                } else {
+
                     return -1;
                 }
             }
