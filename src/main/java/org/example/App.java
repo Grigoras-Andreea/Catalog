@@ -4,100 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
+import java.util.Scanner;
 
 public class App {
-
-    final String url = "jdbc:postgresql://localhost:5432/ProiectMIP";
-    final String user = "postgres";
-    final String password = "1q2w3e";
-
-    /**
-     * Connect to the PostgreSQL database
-     *
-     * @return a Connection object
-     */
-    public Connection connect() throws SQLException {
-        return DriverManager.getConnection(url, user, password);
-    }
-
-    public void insertIntoStudent(int id, String nume, String Prenume, int an, String username, String parola) {
-        String sql = "INSERT INTO \"Student\"(\"ID_Student\", \"Nume\", \"Prenume\", \"An_Studii\", \"Username\", \"Parola\") VALUES(?,?,?,?,?,?)";
-        try (Connection conn = this.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, id);
-            pstmt.setString(2, nume);
-            pstmt.setString(3, Prenume);
-            pstmt.setInt(4, an);
-            pstmt.setString(5, username);
-            pstmt.setString(6, parola);
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-    public void insertIntoProfesor(int id, String nume, String Prenume, String username, String parola){
-        String sql = "INSERT INTO \"Profesor\"(\"ID_Profesor\", \"Nume\", \"Prenume\", \"Username\", \"Parola\") VALUES(?,?,?,?,?)";
-        try (Connection conn = this.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, id);
-            pstmt.setString(2, nume);
-            pstmt.setString(3, Prenume);
-            pstmt.setString(4, username);
-            pstmt.setString(5, parola);
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-    public void insertIntoDisciplina(int ID_Disciplina, double medie, int idProfesor, String numeDisciplina){
-        String sql = "INSERT INTO \"Disciplina\"(\"ID_Disciplina\",\"Medie\",\"ID_Profesor\",\"Nume_disciplina\") VALUES(?,?,?,?)";
-        try (Connection conn = this.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, ID_Disciplina);
-            pstmt.setDouble(2, medie);
-            pstmt.setInt(3, idProfesor);
-            pstmt.setString(4, numeDisciplina);
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void insertDataFromFile(String filePath) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                // Assuming data in the file is comma-separated
-                String[] data = line.split(",");
-                // Assuming the data structure is: id, nume, prenume, an, username, parola
-                int id = Integer.parseInt(data[0]);
-                String nume = data[1];
-                String prenume = data[2];
-                int an = Integer.parseInt(data[3]);
-                String username = data[4];
-                String parola = data[5];
-
-                // Call the existing insertIntoStudent method to insert data into the database
-                insertIntoStudent(id, nume, prenume, an, username, parola);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    public void insertNota(int idStudent, int ID_Disciplina, int nota) {
-        String sql = "INSERT INTO \"Note\"(\"ID_Disciplina\",\"ID_Student\", \"Data\",\"Nota\") VALUES(?,?,?,?)";
-        try (Connection conn = this.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, ID_Disciplina);
-            pstmt.setInt(2, idStudent);
-            pstmt.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
-            pstmt.setInt(4, nota);
-
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
     public static void main(String[] args) throws SQLException {
         /*App app = new App();
@@ -111,6 +20,59 @@ public class App {
 
         Database db = new Database();
         db.connect();
-        System.out.println(db.profesorLogIn("popescuion","1234"));
+        Scanner scanner = new Scanner(System.in);
+
+        //MENU
+
+        while(true){
+            System.out.println("1. Login");
+            System.out.println("2. Register");
+            System.out.println("3. Exit");
+            System.out.println("Introduceti optiunea: ");
+            int optiune = scanner.nextInt();
+            if(optiune == 1){
+                System.out.println("1. Student");
+                System.out.println("2. Profesor");
+                System.out.println("Introduceti optiunea: ");
+                int optiune2 = scanner.nextInt();
+                if(optiune2 == 1){
+                    System.out.println("Introduceti username: ");
+                    String username = scanner.next();
+                    System.out.println("Introduceti parola: ");
+                    String parola = scanner.next();
+                    int id = db.studentLogIn(username, parola);
+                    if(id == -1){
+                        System.out.println("Username sau parola gresita!");
+                    }
+                    else{
+                        System.out.println("Logare cu succes!");
+                        //meniu student
+                    }
+                }
+                else if(optiune2 == 2){
+                    System.out.println("Introduceti username: ");
+                    String username = scanner.next();
+                    System.out.println("Introduceti parola: ");
+                    String parola = scanner.next();
+                    int id = db.profesorLogIn(username, parola);
+                    if(id == -1){
+                        System.out.println("Username sau parola gresita!");
+                    }
+                    else{
+                        System.out.println("Logare cu succes!");
+                        //meniu profesor
+                    }
+                }
+                else{
+                    System.out.println("Optiune invalida!");
+                }
+            }
+            else if(optiune == 3){
+                break;
+            }
+            else{
+                System.out.println("Optiune invalida!");
+            }
+        }
     }
 }
