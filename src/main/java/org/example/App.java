@@ -46,10 +46,44 @@ public class App {
                     }
                     else{
                         System.out.println("Logare cu succes!");
+
+
                         //meniu student
                         //while
                         //optiuni
                         //exit - break
+                        while(true){
+                            System.out.println("1. Afisare note");
+                            System.out.println("2. Afisare medie");
+                            System.out.println("3. Afisare discipline");
+                            System.out.println("4. Exit");
+                            System.out.println("Introduceti optiunea: ");
+                            int optiune3 = scanner.nextInt();
+                            switch(optiune3){
+                                case 1:
+                                    db.showStudentGrades(id);
+                                    break;
+                                case 2:
+                                   // db.showAverage(id);
+                                    break;
+                                case 3:
+                                   // db.showDisciplines(id);
+                                    break;
+                                case 4:
+                                    System.out.println("Comanda efectuata cu succes!");
+                                    break;
+
+                                default:
+                                    System.out.println("Optiune invalida!");
+                            }
+                             if (optiune3 == 4) {
+                                 //iesire din meniu
+                                 System.out.println("Iesire din meniul student.");
+                                 break;
+                             }
+
+
+                        }
                     }
                 }
                 else if(optiune2 == 2){
@@ -94,7 +128,9 @@ public class App {
                         int an = scanner.nextInt();
                         db.insertIntoStudent(id + 1, nume, prenume, an, username, parola);
                         System.out.println("Inregistrare cu succes!");
+
                     }
+
                 }
                 else if(optiune2 == 2){
                     int id = db.GetProfesorLastID();

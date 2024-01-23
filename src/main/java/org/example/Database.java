@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.sql.*;
 
 public class Database {
-    final String url = "jdbc:postgresql://localhost:5432/NoteCatalog" ;
+    final String url = "jdbc:postgresql://localhost:5432/ProiectMIP" ;
     final String user = "postgres";
     final String password = "1q2w3e";
 
@@ -226,6 +226,29 @@ public class Database {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return -1;
+        }
+    }
+    public void showStudentGrades(int studentId) {
+        String sql = "SELECT D.\"Nume_disciplina\" AS Subject, N.\"Nota\" AS Grade, N.\"Data\" AS Date " +
+                "FROM \"Note\" N " +
+                "JOIN \"Disciplina\" D ON N.\"ID_Disciplina\" = D.\"ID_Disciplina\" " +
+                "WHERE N.\"ID_Student\" = ?";
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, studentId);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    String subject = rs.getString("Subject");
+                    int grade = rs.getInt("Grade");
+                    Timestamp date = rs.getTimestamp("Date");
+
+                    System.out.println("Subject: " + subject + ", Grade: " + grade + ", Date: " + date);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
