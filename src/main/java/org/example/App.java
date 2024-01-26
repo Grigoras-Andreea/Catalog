@@ -22,6 +22,7 @@ public class App {
         db.connect();
         Scanner scanner = new Scanner(System.in);
 
+
         //MENU
 
         while(true){
@@ -46,12 +47,7 @@ public class App {
                     }
                     else{
                         System.out.println("Logare cu succes!");
-
-
                         //meniu student
-                        //while
-                        //optiuni
-                        //exit - break
                         while(true){
                             System.out.println("1. Afisare note");
                             System.out.println("2. Afisare medie");
@@ -64,10 +60,10 @@ public class App {
                                     db.showStudentGrades(id);
                                     break;
                                 case 2:
-                                   // db.showAverage(id);
+                                    db.showAverage(id);
                                     break;
                                 case 3:
-                                   // db.showDisciplines(id);
+                                    db.showDisciplines(id);
                                     break;
                                 case 4:
                                     System.out.println("Comanda efectuata cu succes!");

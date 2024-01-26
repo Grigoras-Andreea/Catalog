@@ -234,6 +234,7 @@ public class Database {
                 "JOIN \"Disciplina\" D ON N.\"ID_Disciplina\" = D.\"ID_Disciplina\" " +
                 "WHERE N.\"ID_Student\" = ?";
 
+
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, studentId);
@@ -245,6 +246,48 @@ public class Database {
                     Timestamp date = rs.getTimestamp("Date");
 
                     System.out.println("Subject: " + subject + ", Grade: " + grade + ", Date: " + date);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public void showAverage(int studentId) {
+        String sql = "SELECT AVG(\"Nota\") AS Average " +
+                "FROM \"Note\" " +
+                "WHERE \"ID_Student\" = ?";
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, studentId);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    double average = rs.getDouble("Average");
+
+                    System.out.println("Media: " + average);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public void showDisciplines(int studentId) {
+        String sql = "SELECT D.\"Nume_disciplina\" AS Subject " +
+                "FROM \"Note\" N " +
+                "JOIN \"Disciplina\" D ON N.\"ID_Disciplina\" = D.\"ID_Disciplina\" " +
+                "WHERE N.\"ID_Student\" = ? " +
+                "GROUP BY D.\"Nume_disciplina\"";
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, studentId);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    String subject = rs.getString("Subject");
+
+                    System.out.println("Subject: " + subject);
                 }
             }
         } catch (SQLException e) {
