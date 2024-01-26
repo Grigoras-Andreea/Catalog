@@ -18,6 +18,11 @@ public class Database {
     public Connection connect() throws SQLException {
         return DriverManager.getConnection(url, user, password);
     }
+    public void setLoggedInProfessorId(int professorId) {
+        this.profesorIDLogged = professorId;
+    }
+
+    private int profesorIDLogged;
 
     private boolean checkIfUsernameExistsForStudent(String username) {
         String sql = "SELECT * FROM \"Student\" WHERE \"Username\" = ?";
@@ -179,6 +184,7 @@ public class Database {
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     // Login successful, return the profesor ID
+                    int profesorId = rs.getInt("ID_Profesor");
                     return rs.getInt("ID_Profesor");
                 } else {
                     // Login failed
@@ -294,5 +300,66 @@ public class Database {
             System.out.println(e.getMessage());
         }
     }
+    public boolean checkIfProfesorCanGradeDisciplina(int idDisciplina) {
+        String sql = "SELECT * FROM \"Disciplina\" WHERE \"ID_Disciplina\" = ?";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, idDisciplina);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    // Disciplina exists
+                    int idProfesor = rs.getInt("ID_Profesor");
+                    if (idProfesor == profesorIDLogged) {
+                        // Profesorul poate sa puna nota la disciplina respectiva
+                        return true;
+                    } else {
+                        // Profesorul nu poate sa puna nota la disciplina respectiva
+                        return false;
+                    }
+                } else {
+                    // Disciplina does not exist
+                    return false;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+
+    public void puneNotaStudentilor(int idDisciplina, int idStudent, int nota) {
+        // Verifica daca profesorul respectiv poate sa puna nota la disciplina respectiva
+        if (checkIfProfesorCanGradeDisciplina(idDisciplina)) {
+            // Verifica daca studentul exista
+            if (checkIfStudentExists(idStudent)) {
+                // Insereaza nota in baza de date
+                insertNota(idStudent, idDisciplina, nota);
+                System.out.println("Nota a fost pusa cu succes!");
+            } else {
+                System.out.println("Studentul nu exista!");
+            }
+        } else {
+            // Profesorul nu poate sa puna nota
+            System.out.println("Profesorul nu poate sa puna nota la aceasta disciplina!");
+        }
+    }
+    private boolean checkIfStudentExists(int idStudent) {
+        String sql = "SELECT * FROM \"Student\" WHERE \"ID_Student\" = ?";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, idStudent);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                return rs.next();
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
 
 }
+
+

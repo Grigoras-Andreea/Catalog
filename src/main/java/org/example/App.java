@@ -93,7 +93,49 @@ public class App {
                     }
                     else{
                         System.out.println("Logare cu succes!");
-                        //meniu profesor
+                        //meniu  Profesor
+                        while(true)
+                        {
+                            System.out.println("1. Pune nota stundentilor");
+                            System.out.println("2. Afisare medie finala curs");
+                            System.out.println("3. Afisare lista studenti");
+                            System.out.println("4. Exit");
+                            System.out.println("Introduceti optiunea: ");
+                            int optiune4 = scanner.nextInt();
+                            switch(optiune4){
+                                case 1:
+                                    System.out.println("Introduceti id-ul disciplinei: ");
+                                    int idDisciplina = scanner.nextInt();
+                                    System.out.println("Introduceti id-ul studentului: ");
+                                    int idStudent = scanner.nextInt();
+                                    System.out.println("Introduceti nota: ");
+                                    int nota = scanner.nextInt();
+                                   db.puneNotaStudentilor(idDisciplina, idStudent, nota);
+
+                                    break;
+                                case 2:
+                                    System.out.println("Introduceti id-ul disciplinei: ");
+                                    int idDisciplina2 = scanner.nextInt();
+                                  //  db.showAverageCurs(idDisciplina2);
+                                    break;
+                                case 3:
+                                    System.out.println("Introduceti id-ul disciplinei: ");
+                                    int idDisciplina3 = scanner.nextInt();
+                                   // db.showStudents(idDisciplina3);
+                                    break;
+                                case 4:
+                                    System.out.println("Comanda efectuata cu succes!");
+                                    break;
+                                default:
+                                    System.out.println("Optiune invalida!");
+                            }
+                            if (optiune4 == 4) {
+                                //iesire din meniu
+                                System.out.println("Iesire din meniul profesor.");
+                                break;
+                            }
+                        }
+
                     }
                 }
                 else{
@@ -126,6 +168,7 @@ public class App {
                         System.out.println("Inregistrare cu succes!");
 
                     }
+
 
                 }
                 else if(optiune2 == 2){
