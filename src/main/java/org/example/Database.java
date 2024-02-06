@@ -10,7 +10,7 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Database {
-    final String url = "jdbc:postgresql://localhost:5432/NoteCatalog" ;
+    final String url = "jdbc:postgresql://localhost:5432/ProiectMIP" ;
     final String user = "postgres";
     final String password = "1q2w3e";
 
@@ -132,6 +132,42 @@ public class Database {
             pstmt.setInt(3, idStudent);
             pstmt.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
             pstmt.setInt(5, nota);
+
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public void stergeNota(int idStudent, int ID_Disciplina, int idNota) {
+        String sql = "DELETE FROM \"Note\" WHERE \"ID_Student\" = ? AND \"ID_Disciplina\" = ? AND \"ID_Nota\" = ?";
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, idStudent);
+            pstmt.setInt(2, ID_Disciplina);
+            pstmt.setInt(3, idNota);
+
+            int rowCount = pstmt.executeUpdate();
+
+            if (rowCount > 0) {
+                System.out.println("Nota stearsa cu succes!");
+            } else {
+                System.out.println("Nota nu a fost gasita sau nu a fost stearsa!");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Eroare în timpul ștergerii notei: " + e.getMessage());
+        }
+    }
+
+    public void modificareNota(int idStudent, int ID_Disciplina, int notaVeche, int notaNoua) {
+        String sql = "UPDATE \"Note\" SET \"Nota\" = ? WHERE \"ID_Student\" = ? AND \"ID_Disciplina\" = ? AND \"Nota\" = ?";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, notaNoua);
+            pstmt.setInt(2, idStudent);
+            pstmt.setInt(3, ID_Disciplina);
+            pstmt.setInt(4, notaVeche);
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -275,11 +311,10 @@ public class Database {
         }
     }
     public void showStudentGrades(int studentId) {
-        String sql = "SELECT D.\"Nume_disciplina\" AS Subject, N.\"Nota\" AS Grade, N.\"Data\" AS Date " +
+        String sql = "SELECT N.\"ID_Nota\", D.\"Nume_disciplina\" AS Subject, N.\"Nota\" AS Grade, N.\"Data\" AS Date " +
                 "FROM \"Note\" N " +
                 "JOIN \"Disciplina\" D ON N.\"ID_Disciplina\" = D.\"ID_Disciplina\" " +
                 "WHERE N.\"ID_Student\" = ?";
-
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -287,17 +322,19 @@ public class Database {
 
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
+                    int idNota = rs.getInt("ID_Nota");
                     String subject = rs.getString("Subject");
                     int grade = rs.getInt("Grade");
                     Timestamp date = rs.getTimestamp("Date");
 
-                    System.out.println("Subject: " + subject + ", Grade: " + grade + ", Date: " + date);
+                    System.out.println("ID Nota: " + idNota + ", Subject: " + subject + ", Grade: " + grade + ", Date: " + date);
                 }
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
+
     public void showAverage(int studentId) {
         String sql = "SELECT AVG(\"Nota\") AS Average " +
                 "FROM \"Note\" " +
@@ -413,11 +450,11 @@ public class Database {
         }
     }
     public void showStudents(int idDisciplina) {
-        String sql = "SELECT S.\"Nume\" AS Nume, S.\"Prenume\" AS Prenume " +
+        String sql = "SELECT S.\"ID_Student\", S.\"Nume\" AS Nume, S.\"Prenume\" AS Prenume " +
                 "FROM \"Note\" N " +
                 "JOIN \"Student\" S ON N.\"ID_Student\" = S.\"ID_Student\" " +
                 "WHERE N.\"ID_Disciplina\" = ? " +
-                "GROUP BY S.\"Nume\", S.\"Prenume\"";
+                "GROUP BY S.\"ID_Student\", S.\"Nume\", S.\"Prenume\"";
         List<String> studentList = new ArrayList<>();
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -425,9 +462,10 @@ public class Database {
 
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
+                    int idStudent = rs.getInt("ID_Student");
                     String nume = rs.getString("Nume");
                     String prenume = rs.getString("Prenume");
-                    studentList.add(nume + " " + prenume);
+                    studentList.add("ID: " + idStudent + ", " + nume + " " + prenume);
                 }
             }
         } catch (SQLException e) {
@@ -436,13 +474,14 @@ public class Database {
 
         System.out.println("Studenti:");
 
-        // Utilizare stream pentru sortare alfabetica
+        // Utilizare stream pentru sortare alfabetică
         List<String> studentiSortati = studentList.stream()
                 .sorted()
                 .collect(Collectors.toList());
 
         studentiSortati.forEach(System.out::println);
     }
+
 
     public void showProfesorDisciplines(int profesorId) {
         String sql = "SELECT \"ID_Disciplina\", \"Nume_disciplina\" FROM \"Disciplina\" WHERE \"ID_Profesor\" = ?";
