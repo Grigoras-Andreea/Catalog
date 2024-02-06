@@ -106,14 +106,32 @@ public class Database {
             }
     }
 
-    public void insertNota(int idStudent, int ID_Disciplina, int nota) {
-        String sql = "INSERT INTO \"Note\"(\"ID_Disciplina\",\"ID_Student\", \"Data\",\"Nota\") VALUES(?,?,?,?)";
+    private int getNotaLastID(){
+        String sql = "SELECT * FROM \"Note\" ORDER BY \"ID_Nota\" DESC LIMIT 1";
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, ID_Disciplina);
-            pstmt.setInt(2, idStudent);
-            pstmt.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
-            pstmt.setInt(4, nota);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("ID_Nota");
+                } else {
+                    return -1;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return -1;
+        }
+    }
+
+    public void insertNota(int idStudent, int ID_Disciplina, int nota) {
+        String sql = "INSERT INTO \"Note\"(\"ID_Nota\",\"ID_Disciplina\",\"ID_Student\", \"Data\",\"Nota\") VALUES(?,?,?,?,?)";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, getNotaLastID()+1);
+            pstmt.setInt(2, ID_Disciplina);
+            pstmt.setInt(3, idStudent);
+            pstmt.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
+            pstmt.setInt(5, nota);
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -498,6 +516,8 @@ public class Database {
             System.out.println(e.getMessage());
         }
     }
+
+
 }
 
 
