@@ -4,6 +4,10 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Database {
     final String url = "jdbc:postgresql://localhost:5432/ProiectMIP" ;
@@ -357,6 +361,71 @@ public class Database {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return false;
+        }
+    }
+    public void ShowAverageCurs(int idDisciplina) {
+        String sql = "SELECT AVG(\"Nota\") AS Average " +
+                "FROM \"Note\" " +
+                "WHERE \"ID_Disciplina\" = ?";
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, idDisciplina);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    double average = rs.getDouble("Average");
+
+                    System.out.println("Media: " + average);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public void showStudents(int idDisciplina) {
+        String sql = "SELECT S.\"Nume\" AS Nume, S.\"Prenume\" AS Prenume " +
+                "FROM \"Note\" N " +
+                "JOIN \"Student\" S ON N.\"ID_Student\" = S.\"ID_Student\" " +
+                "WHERE N.\"ID_Disciplina\" = ? " +
+                "GROUP BY S.\"Nume\", S.\"Prenume\"";
+        List<String> studentList = new ArrayList<>();
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, idDisciplina);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    String nume = rs.getString("Nume");
+                    String prenume = rs.getString("Prenume");
+
+                    System.out.println( nume + " " + prenume);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        // Afisarea studentilor
+        System.out.println("Studenti:");
+        studentList.forEach(System.out::println);
+
+        // Verificare daca utilizatorul doreste sortare
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Doriti sa sortati alfabetic? (Da/Nu)");
+        String optiuneSortare = scanner.nextLine();
+
+        if ("Da".equalsIgnoreCase(optiuneSortare)) {
+            // Utilizare stream pentru sortare alfabetica
+            List<String> studentiSortati = studentList.stream()
+                    .sorted()
+                    .collect(Collectors.toList());
+
+            // Afisare studenti sortati
+            System.out.println("Studenti sortati alfabetic:");
+            studentiSortati.forEach(System.out::println);
+        } else {
+            // Continuare cu meniul sau alte operatii
+            System.out.println("Continuare cu meniul sau alte operatii...");
         }
     }
 

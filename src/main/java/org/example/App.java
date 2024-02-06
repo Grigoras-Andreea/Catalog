@@ -116,12 +116,12 @@ public class App {
                                 case 2:
                                     System.out.println("Introduceti id-ul disciplinei: ");
                                     int idDisciplina2 = scanner.nextInt();
-                                  //  db.showAverageCurs(idDisciplina2);
+                                    db.ShowAverageCurs(idDisciplina2);
                                     break;
                                 case 3:
                                     System.out.println("Introduceti id-ul disciplinei: ");
                                     int idDisciplina3 = scanner.nextInt();
-                                   // db.showStudents(idDisciplina3);
+                                    db.showStudents(idDisciplina3);
                                     break;
                                 case 4:
                                     System.out.println("Comanda efectuata cu succes!");
