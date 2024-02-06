@@ -499,6 +499,53 @@ public class Database {
 
 
     //transmit to Student class all information about the student and grades and disciplines
+    public Student sendStudentInfo(int id){
+        Student student = new Student();
+        String sql = "SELECT * FROM \"Student\" WHERE \"ID_Student\" = ?";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+
+                    student.setId(rs.getInt("ID_Student"));
+                    student.setNume(rs.getString("Nume"));
+                    student.setPrenume(rs.getString("Prenume"));
+                    student.setUsername(rs.getString("Username"));
+                    student.setParola(rs.getString("Parola"));
+                    student.setAn(rs.getInt("An_Studii"));
+
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        String sql2 = "SELECT D.\"Nume_disciplina\", N.\"Nota\" , N.\"Data\"  " +
+                "FROM \"Note\" N " +
+                "JOIN \"Disciplina\" D ON N.\"ID_Disciplina\" = D.\"ID_Disciplina\" " +
+                "WHERE N.\"ID_Student\" = ?";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql2)) {
+            pstmt.setInt(1, id);
+
+            try (ResultSet rs2 = pstmt.executeQuery()) {
+                while (rs2.next()) {
+                    String subject = rs2.getString("Nume_disciplina");
+                    int grade = rs2.getInt("Nota");
+                    String date = rs2.getString("Data");
+
+                    // Adding grades to the student object
+                    student.addNota(subject, grade, date);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return student;
+    }
 
 }
 

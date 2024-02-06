@@ -12,4 +12,9 @@ public class Nota {
         this.date = date;
     }
 
+    @Override
+    public String toString() {
+        return "Subject: " + numeDisciplina + ", Grade: " + nota + ", Date: " + date;
+    }
+
 }

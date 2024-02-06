@@ -39,6 +39,10 @@ public class App {
                         System.out.println("Logare cu succes!");
                         // meniu student
                         while (true) {
+                            Student student = db.sendStudentInfo(id);
+                            System.out.println("Nume: " + student.getNume());
+                            System.out.println(student.toString());
+
                             System.out.println("1. Afisare note");
                             System.out.println("2. Afisare medie");
                             System.out.println("3. Afisare discipline");

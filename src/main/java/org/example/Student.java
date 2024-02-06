@@ -12,7 +12,7 @@ public class Student {
     private String username;
     private String parola;
     private int an;
-    private ArrayList<Nota> note = new ArrayList<Nota>();
+    public ArrayList<Nota> note = new ArrayList<Nota>();
 
     public int getId() {
         return id;
@@ -58,5 +58,22 @@ public class Student {
         this.an = an;
     }
 
+    public void addNota(String numeDisciplina, int nota, String date) {
+        Nota notaNoua = new Nota(numeDisciplina, nota, date);
+        note.add(notaNoua);
+    }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Student ID: ").append(id).append("\n");
+        sb.append("Name: ").append(nume).append(" ").append(prenume).append("\n");
+        sb.append("Username: ").append(username).append("\n");
+        sb.append("An: ").append(an).append("\n");
+        sb.append("Grades:\n");
+        for (Nota nota : note) {
+            sb.append(nota).append("\n");
+        }
+        return sb.toString();
+    }
 }
