@@ -434,35 +434,21 @@ public class Database {
                 while (rs.next()) {
                     String nume = rs.getString("Nume");
                     String prenume = rs.getString("Prenume");
-
-                    System.out.println( nume + " " + prenume);
+                    studentList.add(nume + " " + prenume);
                 }
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        // Afisarea studentilor
+
         System.out.println("Studenti:");
-        studentList.forEach(System.out::println);
 
-        // Verificare daca utilizatorul doreste sortare
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Doriti sa sortati alfabetic? (Da/Nu)");
-        String optiuneSortare = scanner.nextLine();
+        // Utilizare stream pentru sortare alfabetica
+        List<String> studentiSortati = studentList.stream()
+                .sorted()
+                .collect(Collectors.toList());
 
-        if ("Da".equalsIgnoreCase(optiuneSortare)) {
-            // Utilizare stream pentru sortare alfabetica
-            List<String> studentiSortati = studentList.stream()
-                    .sorted()
-                    .collect(Collectors.toList());
-
-            // Afisare studenti sortati
-            System.out.println("Studenti sortati alfabetic:");
-            studentiSortati.forEach(System.out::println);
-        } else {
-            // Continuare cu meniul sau alte operatii
-            System.out.println("Continuare cu meniul sau alte operatii...");
-        }
+        studentiSortati.forEach(System.out::println);
     }
 
     public void showProfesorDisciplines(int profesorId) {
