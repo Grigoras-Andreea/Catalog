@@ -504,6 +504,9 @@ public class Database {
     }
 
 
+
+    //transmit to Student class all information about the student and grades and disciplines
+
 }
 
 
