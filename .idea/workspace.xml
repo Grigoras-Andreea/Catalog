@@ -4,13 +4,42 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ed1e95a4-aedb-4c56-bdef-26614b70a25a" name="Changes" comment=".">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_02_2024_20_26__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_02_2024_20_26__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_02_2024_20_57__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_02_2024_20_57__Changes_.xml" afterDir="false" />
+    <list default="true" id="ed1e95a4-aedb-4c56-bdef-26614b70a25a" name="Changes" comment="started functions for student">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/ProiectMIP.Wv1_zA.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/ProiectMIP.Wv1_zA/schema/information_schema.FNRwLQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/ProiectMIP.Wv1_zA/schema/information_schema.FNRwLQ.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/ProiectMIP.Wv1_zA/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/ProiectMIP.Wv1_zA/schema/pg_catalog.0S1ZNQ.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/ProiectMIP.Wv1_zA/schema/public.abK9xQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/employee.ruYiRw.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/employee.ruYiRw/schema/information_schema.FNRwLQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/employee.ruYiRw/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/myrestaurant.6TEWPQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/myrestaurant.6TEWPQ/schema/information_schema.FNRwLQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/myrestaurant.6TEWPQ/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/postgres.edMnLQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/postgres.edMnLQ/schema/information_schema.FNRwLQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/postgres.edMnLQ/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/transport.KffCPg.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/transport.KffCPg/schema/information_schema.FNRwLQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/transport.KffCPg/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/vanzari.QW3sDQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/vanzari.QW3sDQ/schema/information_schema.FNRwLQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/vanzari.QW3sDQ/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/vanzarilaborator.Za2VFA.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/vanzarilaborator.Za2VFA/schema/information_schema.FNRwLQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/vanzarilaborator.Za2VFA/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/vanzarile.ei6GRA.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/vanzarile.ei6GRA/schema/information_schema.FNRwLQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/vanzarile.ei6GRA/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2_6_2024_8_36_PM_[Changes]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2_6_2024_8_36_PM__Changes_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Nota.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/NoteCatalog.p3u3-A/schema/information_schema.FNRwLQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/NoteCatalog.p3u3-A/schema/information_schema.FNRwLQ.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/NoteCatalog.p3u3-A/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/NoteCatalog.p3u3-A/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/NoteCatalog.p3u3-A/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/NoteCatalog.p3u3-A/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Database.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,7 +171,23 @@
       <option name="project" value="LOCAL" />
       <updated>1707244455922</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary=".">
+      <option name="closed" value="true" />
+      <created>1707246438261</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1707246438261</updated>
+    </task>
+    <task id="LOCAL-00011" summary="started functions for student">
+      <option name="closed" value="true" />
+      <created>1707247958648</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1707247958648</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -181,7 +226,8 @@
     <MESSAGE value="added menu for the student in app.java, and showStudentsGrades in database.java" />
     <MESSAGE value="completed student menu" />
     <MESSAGE value="." />
-    <option name="LAST_COMMIT_MESSAGE" value="." />
+    <MESSAGE value="started functions for student" />
+    <option name="LAST_COMMIT_MESSAGE" value="started functions for student" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
