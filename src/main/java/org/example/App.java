@@ -125,11 +125,13 @@ public class App {
 
                                     break;
                                 case 2:
+                                    db.showProfesorDisciplines(id);
                                     System.out.println("Introduceti id-ul disciplinei: ");
                                     int idDisciplina2 = scanner.nextInt();
                                     db.ShowAverageCurs(idDisciplina2);
                                     break;
                                 case 3:
+                                    db.showProfesorDisciplines(id);
                                     System.out.println("Introduceti id-ul disciplinei: ");
                                     int idDisciplina3 = scanner.nextInt();
                                     db.showStudents(idDisciplina3);
