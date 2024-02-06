@@ -99,18 +99,29 @@ public class App {
                             System.out.println("1. Pune nota stundentilor");
                             System.out.println("2. Afisare medie finala curs");
                             System.out.println("3. Afisare lista studenti");
-                            System.out.println("4. Exit");
+                            System.out.println("4.Adaugare disciplina");
+                            System.out.println("5. Exit");
                             System.out.println("Introduceti optiunea: ");
                             int optiune4 = scanner.nextInt();
                             switch(optiune4){
                                 case 1:
+                                    db.showProfesorDisciplines(id);
                                     System.out.println("Introduceti id-ul disciplinei: ");
                                     int idDisciplina = scanner.nextInt();
+                                    if(!db.checkIfProfesorTeachesDisciplina(idDisciplina, id)){
+                                        System.out.println("Nu predati aceasta disciplina!");
+                                        break;
+                                    }
+                                    db.showStudents();
                                     System.out.println("Introduceti id-ul studentului: ");
                                     int idStudent = scanner.nextInt();
+                                    if(!db.checkIfStudentExists(idStudent)){
+                                        System.out.println("Studentul nu exista sau nu face parte din aceasta disciplina!");
+                                        break;
+                                    }
                                     System.out.println("Introduceti nota: ");
                                     int nota = scanner.nextInt();
-                                   db.puneNotaStudentilor(idDisciplina, idStudent, nota);
+                                    db.puneNotaStudentilor(idDisciplina, idStudent, nota);
 
                                     break;
                                 case 2:
@@ -123,13 +134,19 @@ public class App {
                                     int idDisciplina3 = scanner.nextInt();
                                    // db.showStudents(idDisciplina3);
                                     break;
+
                                 case 4:
+                                    System.out.println("Introduceti numele disciplinei: ");
+                                    String numeDisciplina = scanner.next();
+                                    db.insertIntoDisciplina(db.getLastIDFromDisciplina() + 1, 0,id, numeDisciplina);
+                                    break;
+                                case 5:
                                     System.out.println("Comanda efectuata cu succes!");
                                     break;
                                 default:
                                     System.out.println("Optiune invalida!");
                             }
-                            if (optiune4 == 4) {
+                            if (optiune4 == 5) {
                                 //iesire din meniu
                                 System.out.println("Iesire din meniul profesor.");
                                 break;

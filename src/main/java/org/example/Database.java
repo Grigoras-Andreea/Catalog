@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.sql.*;
 
 public class Database {
-    final String url = "jdbc:postgresql://localhost:5432/ProiectMIP" ;
+    final String url = "jdbc:postgresql://localhost:5432/NoteCatalog" ;
     final String user = "postgres";
     final String password = "1q2w3e";
 
@@ -24,7 +24,7 @@ public class Database {
 
     private int profesorIDLogged;
 
-    private boolean checkIfUsernameExistsForStudent(String username) {
+    public boolean checkIfUsernameExistsForStudent(String username) {
         String sql = "SELECT * FROM \"Student\" WHERE \"Username\" = ?";
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -70,6 +70,7 @@ public class Database {
         return checkIfUsernameExistsForStudent(username) || checkIfUsernameExistsForProfesor(username);
     }
 
+
     public void insertIntoStudent(int id, String nume, String Prenume, int an, String username, String parola){
         String sql = "INSERT INTO \"Student\"(\"ID_Student\", \"Nume\", \"Prenume\", \"An_Studii\", \"Username\", \"Parola\") VALUES(?,?,?,?,?,?)";
         try (Connection conn = this.connect();
@@ -113,6 +114,23 @@ public class Database {
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    public int getLastIDFromDisciplina(){
+        String sql = "SELECT * FROM \"Disciplina\" ORDER BY \"ID_Disciplina\" DESC LIMIT 1";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("ID_Disciplina");
+                } else {
+                    return -1;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return -1;
         }
     }
 
@@ -345,7 +363,7 @@ public class Database {
             System.out.println("Profesorul nu poate sa puna nota la aceasta disciplina!");
         }
     }
-    private boolean checkIfStudentExists(int idStudent) {
+    boolean checkIfStudentExists(int idStudent) {
         String sql = "SELECT * FROM \"Student\" WHERE \"ID_Student\" = ?";
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -360,6 +378,57 @@ public class Database {
         }
     }
 
+    public void showProfesorDisciplines(int profesorId) {
+        String sql = "SELECT \"ID_Disciplina\", \"Nume_disciplina\" FROM \"Disciplina\" WHERE \"ID_Profesor\" = ?";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, profesorId);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    int idDisciplina = rs.getInt("ID_Disciplina");
+                    String disciplina = rs.getString("Nume_disciplina");
+                    System.out.println("ID: " + idDisciplina + ", Disciplina: " + disciplina);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public boolean checkIfProfesorTeachesDisciplina(int idDisciplina, int id) {
+        String sql = "SELECT * FROM \"Disciplina\" WHERE \"ID_Disciplina\" = ? AND \"ID_Profesor\" = ?";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, idDisciplina);
+            pstmt.setInt(2, id);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                return rs.next();
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public void showStudents() {
+        String sql = "SELECT * FROM \"Student\"";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("ID_Student");
+                    String nume = rs.getString("Nume");
+                    String prenume = rs.getString("Prenume");
+
+                    System.out.println("ID: " + id + ", Nume: " + nume + ", Prenume: " + prenume);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
 
 
