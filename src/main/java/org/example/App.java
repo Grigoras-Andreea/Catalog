@@ -1,6 +1,7 @@
 package org.example;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
 public class App {
@@ -9,6 +10,9 @@ public class App {
         Database db = new Database();
         db.connect();
         Scanner scanner = new Scanner(System.in);
+
+        List<Student> students = db.getAllStudents();
+        Student.LeaderboardForYear(students, 1);
 
         int profesorIDLogged = -1;
 

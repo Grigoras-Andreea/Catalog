@@ -17,4 +17,15 @@ public class Nota {
         return "Subject: " + numeDisciplina + ", Grade: " + nota + ", Date: " + date;
     }
 
+    public String getNumeDisciplina() {
+        return numeDisciplina;
+    }
+
+    public int getNota() {
+        return nota;
+    }
+
+    public String getDate() {
+        return date;
+    }
 }

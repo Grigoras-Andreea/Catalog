@@ -547,6 +547,13 @@ public class Database {
         return student;
     }
 
+    public List<Student> getAllStudents(){
+        List<Student> studentList = new ArrayList<>();
+        for (int i = 0; i < GetStudentLastID(); i++) {
+            studentList.add(sendStudentInfo(i));
+        }
+        return studentList;
+    }
 }
 
 
