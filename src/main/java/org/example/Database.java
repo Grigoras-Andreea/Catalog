@@ -10,7 +10,7 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Database {
-    final String url = "jdbc:postgresql://localhost:5432/NoteCatalog" ;
+    final String url = "jdbc:postgresql://localhost:5432/ProiectMIP" ;
     final String user = "postgres";
     final String password = "1q2w3e";
 
@@ -26,7 +26,7 @@ public class Database {
         this.profesorIDLogged = professorId;
     }
 
-    private int profesorIDLogged;
+    private int profesorIDLogged=-1;
 
     public boolean checkIfUsernameExistsForStudent(String username) {
         String sql = "SELECT * FROM \"Student\" WHERE \"Username\" = ?";
@@ -340,7 +340,7 @@ public class Database {
             System.out.println(e.getMessage());
         }
     }
-    public boolean checkIfProfesorCanGradeDisciplina(int idDisciplina) {
+    public boolean checkIfProfesorCanGradeDisciplina(int idDisciplina, int profesorIDLogged) {
         String sql = "SELECT * FROM \"Disciplina\" WHERE \"ID_Disciplina\" = ?";
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -350,13 +350,7 @@ public class Database {
                 if (rs.next()) {
                     // Disciplina exists
                     int idProfesor = rs.getInt("ID_Profesor");
-                    if (idProfesor == profesorIDLogged) {
-                        // Profesorul poate sa puna nota la disciplina respectiva
-                        return true;
-                    } else {
-                        // Profesorul nu poate sa puna nota la disciplina respectiva
-                        return false;
-                    }
+                    return idProfesor == profesorIDLogged;
                 } else {
                     // Disciplina does not exist
                     return false;
@@ -368,10 +362,9 @@ public class Database {
         }
     }
 
-
-    public void puneNotaStudentilor(int idDisciplina, int idStudent, int nota) {
+    public void puneNotaStudentilor(int idDisciplina, int idStudent, int nota, int profesorIDLogged) {
         // Verifica daca profesorul respectiv poate sa puna nota la disciplina respectiva
-        if (checkIfProfesorCanGradeDisciplina(idDisciplina)) {
+        if (checkIfProfesorCanGradeDisciplina(idDisciplina, profesorIDLogged)) {
             // Verifica daca studentul exista
             if (checkIfStudentExists(idStudent)) {
                 // Insereaza nota in baza de date
@@ -382,7 +375,7 @@ public class Database {
             }
         } else {
             // Profesorul nu poate sa puna nota
-            System.out.println("Profesorul nu poate sa puna nota la aceasta disciplina!");
+            System.out.println("Profesorul cu ID-ul " + profesorIDLogged + " nu poate să pună nota la disciplina cu ID-ul " + idDisciplina);
         }
     }
     boolean checkIfStudentExists(int idStudent) {
