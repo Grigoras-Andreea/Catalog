@@ -10,7 +10,7 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Database {
-    final String url = "jdbc:postgresql://localhost:5432/ProiectMIP" ;
+    final String url = "jdbc:postgresql://localhost:5432/NoteCatalog" ;
     final String user = "postgres";
     final String password = "1q2w3e";
 
