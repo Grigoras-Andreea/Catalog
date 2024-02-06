@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ed1e95a4-aedb-4c56-bdef-26614b70a25a" name="Changes" comment="added teacher menu( grading not solved)">
+    <list default="true" id="ed1e95a4-aedb-4c56-bdef-26614b70a25a" name="Changes" comment="completed student menu">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/App.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Database.java" afterDir="false" />
     </list>
@@ -66,8 +65,7 @@
       <workItem from="1705842039988" duration="536000" />
       <workItem from="1705842592150" duration="3123000" />
       <workItem from="1705867168884" duration="1365000" />
-      <workItem from="1706272696959" duration="5345000" />
-      <workItem from="1707241848163" duration="1828000" />
+      <workItem from="1706272696959" duration="5138000" />
     </task>
     <task id="LOCAL-00001" summary="not working db">
       <option name="closed" value="true" />
@@ -133,15 +131,7 @@
       <option name="project" value="LOCAL" />
       <updated>1706273611020</updated>
     </task>
-    <task id="LOCAL-00009" summary="added teacher menu( grading not solved)">
-      <option name="closed" value="true" />
-      <created>1706278378730</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1706278378730</updated>
-    </task>
-    <option name="localTasksCounter" value="10" />
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -167,8 +157,7 @@
     <MESSAGE value="added some other functions for database and continued menu" />
     <MESSAGE value="added menu for the student in app.java, and showStudentsGrades in database.java" />
     <MESSAGE value="completed student menu" />
-    <MESSAGE value="added teacher menu( grading not solved)" />
-    <option name="LAST_COMMIT_MESSAGE" value="added teacher menu( grading not solved)" />
+    <option name="LAST_COMMIT_MESSAGE" value="completed student menu" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
