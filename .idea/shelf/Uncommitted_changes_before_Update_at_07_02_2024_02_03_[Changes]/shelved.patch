@@ -1,0 +1,234 @@
+Index: src/main/java/org/example/App.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example;\r\n\r\nimport java.sql.SQLException;\r\nimport java.util.List;\r\nimport java.util.Scanner;\r\n\r\npublic class App {\r\n\r\n    public static void main(String[] args) throws SQLException {\r\n        Database db = new Database();\r\n        db.connect();\r\n        Scanner scanner = new Scanner(System.in);\r\n\r\n        List<Student> students = db.getAllStudents();\r\n        Student.LeaderboardForYear(students, 1);\r\n\r\n        int profesorIDLogged = -1;\r\n\r\n        // MENU\r\n        while (true) {\r\n            System.out.println(\"1. Login\");\r\n            System.out.println(\"2. Register\");\r\n            System.out.println(\"3. Exit\");\r\n            System.out.println(\"Introduceti optiunea: \");\r\n            int optiune = scanner.nextInt();\r\n\r\n            if (optiune == 1) {\r\n                System.out.println(\"1. Student\");\r\n                System.out.println(\"2. Profesor\");\r\n                System.out.println(\"Introduceti optiunea: \");\r\n                int optiune2 = scanner.nextInt();\r\n\r\n                if (optiune2 == 1) {\r\n                    System.out.println(\"Introduceti username: \");\r\n                    String username = scanner.next();\r\n                    System.out.println(\"Introduceti parola: \");\r\n                    String parola = scanner.next();\r\n                    int id = db.studentLogIn(username, parola);\r\n\r\n                    if (id == -1) {\r\n                        System.out.println(\"Username sau parola gresita!\");\r\n                    } else {\r\n                        System.out.println(\"Logare cu succes!\");\r\n                        // meniu student\r\n                        while (true) {\r\n                            Student student = db.sendStudentInfo(id);\r\n                            System.out.println(\"Nume: \" + student.getNume());\r\n                            System.out.println(student.toString());\r\n\r\n                            System.out.println(\"1. Afisare note\");\r\n                            System.out.println(\"2. Afisare medie\");\r\n                            System.out.println(\"3. Afisare discipline\");\r\n                            System.out.println(\"4. Exit\");\r\n                            System.out.println(\"Introduceti optiunea: \");\r\n                            int optiune3 = scanner.nextInt();\r\n\r\n                            switch (optiune3) {\r\n                                case 1:\r\n                                    db.showStudentGrades(id);\r\n                                    break;\r\n                                case 2:\r\n                                    db.showAverage(id);\r\n                                    break;\r\n                                case 3:\r\n                                    db.showDisciplines(id);\r\n                                    break;\r\n                                case 4:\r\n                                    System.out.println(\"Comanda efectuata cu succes!\");\r\n                                    break;\r\n                                default:\r\n                                    System.out.println(\"Optiune invalida!\");\r\n                            }\r\n\r\n                            if (optiune3 == 4) {\r\n                                // iesire din meniu\r\n                                System.out.println(\"Iesire din meniul student.\");\r\n                                break;\r\n                            }\r\n                        }\r\n                    }\r\n                } else if (optiune2 == 2) {\r\n                    System.out.println(\"Introduceti username: \");\r\n                    String username = scanner.next();\r\n                    System.out.println(\"Introduceti parola: \");\r\n                    String parola = scanner.next();\r\n                    profesorIDLogged = db.profesorLogIn(username, parola);\r\n\r\n                    if (profesorIDLogged == -1) {\r\n                        System.out.println(\"Username sau parola gresita!\");\r\n                    } else {\r\n                        System.out.println(\"Logare cu succes!\");\r\n                        // meniu Profesor\r\n                        while (true) {\r\n                            System.out.println(\"1. Pune nota studentilor\");\r\n                            System.out.println(\"2. Afisare medie finala curs\");\r\n                            System.out.println(\"3. Afisare lista studenti\");\r\n                            System.out.println(\"4. Adaugare disciplina\");\r\n                            System.out.println(\"5. Exit\");\r\n                            System.out.println(\"Introduceti optiunea: \");\r\n                            int optiune4 = scanner.nextInt();\r\n\r\n                            switch (optiune4) {\r\n                                case 1:\r\n                                    db.showProfesorDisciplines(profesorIDLogged);\r\n                                    System.out.println(\"Introduceti id-ul disciplinei: \");\r\n                                    int idDisciplina = scanner.nextInt();\r\n\r\n                                    if (!db.checkIfProfesorTeachesDisciplina(idDisciplina, profesorIDLogged)) {\r\n                                        System.out.println(\"Nu predati aceasta disciplina!\");\r\n                                        break;\r\n                                    }\r\n\r\n                                    db.showStudents();\r\n                                    System.out.println(\"Introduceti id-ul studentului: \");\r\n                                    int idStudent = scanner.nextInt();\r\n\r\n                                    if (!db.checkIfStudentExists(idStudent)) {\r\n                                        System.out.println(\"Studentul nu exista sau nu face parte din aceasta disciplina!\");\r\n                                        break;\r\n                                    }\r\n\r\n                                    System.out.println(\"Introduceti nota: \");\r\n                                    int nota = scanner.nextInt();\r\n                                    db.puneNotaStudentilor(idDisciplina,idStudent,nota,profesorIDLogged);\r\n                                    break;\r\n\r\n                                case 2:\r\n                                    db.showProfesorDisciplines(profesorIDLogged);\r\n                                    System.out.println(\"Introduceti id-ul disciplinei: \");\r\n                                    int idDisciplina2 = scanner.nextInt();\r\n                                    db.ShowAverageCurs(idDisciplina2);\r\n                                    break;\r\n\r\n                                case 3:\r\n                                    db.showProfesorDisciplines(profesorIDLogged);\r\n                                    System.out.println(\"Introduceti id-ul disciplinei: \");\r\n                                case 4:\r\n                                    System.out.println(\"Introduceti numele disciplinei: \");\r\n                                    String numeDisciplina = scanner.next();\r\n                                    db.insertIntoDisciplina(db.getLastIDFromDisciplina() + 1, 0, profesorIDLogged, numeDisciplina);\r\n                                    break;\r\n\r\n                                case 5:\r\n                                    System.out.println(\"Comanda efectuata cu succes!\");\r\n                                    break;\r\n\r\n                                default:\r\n                                    System.out.println(\"Optiune invalida!\");\r\n                            }\r\n\r\n                            if (optiune4 == 5) {\r\n                                // iesire din meniu\r\n                                System.out.println(\"Iesire din meniul profesor.\");\r\n                                break;\r\n                            }\r\n                        }\r\n                    }\r\n                } else {\r\n                    System.out.println(\"Optiune invalida!\");\r\n                }\r\n            } else if (optiune == 2) {\r\n                System.out.println(\"1. Student\");\r\n                System.out.println(\"2. Profesor\");\r\n                System.out.println(\"3. Exit\");\r\n                System.out.println(\"Introduceti optiunea: \");\r\n                int optiune2 = scanner.nextInt();\r\n\r\n                if (optiune2 == 1) {\r\n                    int id = db.GetStudentLastID();\r\n                    System.out.println(\"Introduceti nume: \");\r\n                    String nume = scanner.next();\r\n                    System.out.println(\"Introduceti prenume: \");\r\n                    String prenume = scanner.next();\r\n                    System.out.println(\"Introduceti username: \");\r\n                    String username = scanner.next();\r\n\r\n                    if (db.checkIfUsernameExists(username)) {\r\n                        System.out.println(\"Username-ul exista deja!\");\r\n                    } else {\r\n                        System.out.println(\"Introduceti parola: \");\r\n                        String parola = scanner.next();\r\n                        System.out.println(\"Introduceti anul: \");\r\n                        int an = scanner.nextInt();\r\n                        db.insertIntoStudent(id + 1, nume, prenume, an, username, parola);\r\n                        System.out.println(\"Inregistrare cu succes!\");\r\n                    }\r\n\r\n                } else if (optiune2 == 2) {\r\n                    int id = db.GetProfesorLastID();\r\n                    System.out.println(\"Introduceti nume: \");\r\n                    String nume = scanner.next();\r\n                    System.out.println(\"Introduceti prenume: \");\r\n                    String prenume = scanner.next();\r\n                    System.out.println(\"Introduceti username: \");\r\n                    String username = scanner.next();\r\n\r\n                    if (db.checkIfUsernameExists(username)) {\r\n                        System.out.println(\"Username-ul exista deja!\");\r\n                    } else {\r\n                        System.out.println(\"Introduceti parola: \");\r\n                        String parola = scanner.next();\r\n                        db.insertIntoProfesor(id + 1, nume, prenume, username, parola);\r\n                        System.out.println(\"Inregistrare cu succes!\");\r\n                    }\r\n                } else if (optiune2 == 3) {\r\n                    System.out.println(\"Comanda efectuata cu succes!\");\r\n                } else {\r\n                    System.out.println(\"Optiune invalida!\");\r\n                }\r\n            } else if (optiune == 3) {\r\n                break;\r\n            } else {\r\n                System.out.println(\"Optiune invalida!\");\r\n            }\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/App.java b/src/main/java/org/example/App.java
+--- a/src/main/java/org/example/App.java	(revision 26f39449c8309613c78d07761a382d078fdea4cf)
++++ b/src/main/java/org/example/App.java	(date 1707263979228)
+@@ -95,7 +95,8 @@
+                             System.out.println("2. Afisare medie finala curs");
+                             System.out.println("3. Afisare lista studenti");
+                             System.out.println("4. Adaugare disciplina");
+-                            System.out.println("5. Exit");
++                            System.out.println("5. Modificare/Stergere nota student");
++                            System.out.println("6. Exit");
+                             System.out.println("Introduceti optiunea: ");
+                             int optiune4 = scanner.nextInt();
+ 
+@@ -134,13 +135,83 @@
+                                 case 3:
+                                     db.showProfesorDisciplines(profesorIDLogged);
+                                     System.out.println("Introduceti id-ul disciplinei: ");
++                                    int idDisciplina3 = scanner.nextInt();
++                                    db.showStudents(idDisciplina3);
++                                    break;
++
+                                 case 4:
+                                     System.out.println("Introduceti numele disciplinei: ");
+                                     String numeDisciplina = scanner.next();
+                                     db.insertIntoDisciplina(db.getLastIDFromDisciplina() + 1, 0, profesorIDLogged, numeDisciplina);
+                                     break;
+-
+                                 case 5:
++                                    System.out.println("A. Modificare nota");
++                                    System.out.println("B. Stergere nota");
++                                    System.out.println("Introduceti optiunea: ");
++                                    String optiune5 = scanner.next();
++                                    switch (optiune5){
++                                        case "A":
++                                            //modificare nota
++                                            db.showProfesorDisciplines(profesorIDLogged);
++                                            System.out.println("Introduceti id-ul disciplinei: ");
++                                            int idDisciplina5 = scanner.nextInt();
++                                            if (!db.checkIfProfesorTeachesDisciplina(idDisciplina5, profesorIDLogged)) {
++                                                System.out.println("Nu predati aceasta disciplina!");
++                                                break;
++                                            }
++                                            db.showStudents(idDisciplina5);
++                                            System.out.println("Introduceti id-ul studentului: ");
++                                            int idStudent5 = scanner.nextInt();
++                                            //verificare daca studentul exista
++                                            if (!db.checkIfStudentExists(idStudent5)) {
++                                                System.out.println("Studentul nu exista sau nu face parte din aceasta disciplina!");
++                                                break;
++                                            }
++                                            db.showStudentGrades(idStudent5);
++                                            System.out.println("Introduceti id-ul notei: ");
++                                            int idNota5 = scanner.nextInt();
++                                            System.out.println("Introduceti noua nota: ");
++                                            int nota5 = scanner.nextInt();
++                                            db.modificareNota(idStudent5,idDisciplina5,idNota5,nota5);
++                                            System.out.println("Nota a fost modificata cu succes!");
++                                            break;
++                                        case "B":
++                                            // Sterge nota
++                                            System.out.println("Stergere nota:");
++                                            db.showProfesorDisciplines(profesorIDLogged);
++                                            System.out.println("Introduceti id-ul disciplinei: ");
++                                            int idDisciplina5B = scanner.nextInt();
++
++                                            if (!db.checkIfProfesorTeachesDisciplina(idDisciplina5B, profesorIDLogged)) {
++                                                System.out.println("Nu predati aceasta disciplina!");
++                                                break;
++                                            }
++
++                                            db.showStudents();
++                                            System.out.println("Introduceti id-ul studentului: ");
++                                            int idStudent5B = scanner.nextInt();
++
++                                            if (!db.checkIfStudentExists(idStudent5B)) {
++                                                System.out.println("Studentul nu exista sau nu face parte din aceasta disciplina!");
++                                                break;
++                                            }
++                                            System.out.println("Notele studentului:");
++                                            db.showStudentGrades(idStudent5B);
++                                            System.out.println("Introduceti id-ul notei: ");
++                                            int idNota5B = scanner.nextInt();
++
++                                            // Sterge nota
++                                            db.stergeNota(idStudent5B,idDisciplina5B,idNota5B);
++
++                                            break;
++
++                                        default:
++                                            System.out.println("Optiune invalida!");
++                                            break;
++                                    }
++                                    break;
++
++                                case 6:
+                                     System.out.println("Comanda efectuata cu succes!");
+                                     break;
+ 
+@@ -148,7 +219,7 @@
+                                     System.out.println("Optiune invalida!");
+                             }
+ 
+-                            if (optiune4 == 5) {
++                            if (optiune4 == 6) {
+                                 // iesire din meniu
+                                 System.out.println("Iesire din meniul profesor.");
+                                 break;
+Index: .idea/dataSources.local.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"dataSourceStorageLocal\" created-in=\"IU-232.9921.47\">\r\n    <data-source name=\"conn\" uuid=\"45b6348e-6083-400a-9e38-78e2f19fa12f\">\r\n      <database-info product=\"PostgreSQL\" version=\"15.4\" jdbc-version=\"4.2\" driver-name=\"PostgreSQL JDBC Driver\" driver-version=\"42.6.0\" dbms=\"POSTGRES\" exact-version=\"15.4\" exact-driver-version=\"42.6\">\r\n        <identifier-quote-string>&quot;</identifier-quote-string>\r\n      </database-info>\r\n      <case-sensitivity plain-identifiers=\"lower\" quoted-identifiers=\"exact\" />\r\n      <secret-storage>master_key</secret-storage>\r\n      <user-name>postgres</user-name>\r\n      <schema-mapping>\r\n        <introspection-scope>\r\n          <node kind=\"database\" qname=\"NoteCatalog\">\r\n            <node kind=\"schema\" negative=\"1\" />\r\n          </node>\r\n        </introspection-scope>\r\n      </schema-mapping>\r\n    </data-source>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/dataSources.local.xml b/.idea/dataSources.local.xml
+--- a/.idea/dataSources.local.xml	(revision 26f39449c8309613c78d07761a382d078fdea4cf)
++++ b/.idea/dataSources.local.xml	(date 1707263979190)
+@@ -10,8 +10,13 @@
+       <user-name>postgres</user-name>
+       <schema-mapping>
+         <introspection-scope>
+-          <node kind="database" qname="NoteCatalog">
+-            <node kind="schema" negative="1" />
++          <node negative="1">
++            <node kind="database" qname="ProiectMIP">
++              <node kind="schema" qname="public" />
++            </node>
++            <node kind="database" qname="NoteCatalog">
++              <node kind="schema" negative="1" />
++            </node>
+           </node>
+         </introspection-scope>
+       </schema-mapping>
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"ed1e95a4-aedb-4c56-bdef-26614b70a25a\" name=\"Changes\" comment=\"transfer from database to class Student successfully\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/NoteCatalog.p3u3-A/schema/public.abK9xQ.meta\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/NoteCatalog.p3u3-A/schema/public.abK9xQ.meta\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2_6_2024_9_09_PM__Changes_.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2_6_2024_9_09_PM__Changes_.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/example/App.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/example/App.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/example/Database.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/example/Database.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/example/Nota.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/example/Nota.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/example/Student.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/example/Student.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;customColor&quot;: &quot;&quot;,\r\n  &quot;associatedIndex&quot;: 8\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2bBCcAPeFIuoRvDLvOzO09fzQvw\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\r\n    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,\r\n    &quot;git-widget-placeholder&quot;: &quot;master&quot;,\r\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\r\n  },\r\n  &quot;keyToStringList&quot;: {\r\n    &quot;DatabaseDriversLRU&quot;: [\r\n      &quot;postgresql&quot;\r\n    ]\r\n  }\r\n}</component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"ed1e95a4-aedb-4c56-bdef-26614b70a25a\" name=\"Changes\" comment=\"\" />\r\n      <created>1705679163741</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1705679163741</updated>\r\n      <workItem from=\"1705679164635\" duration=\"428000\" />\r\n      <workItem from=\"1705842039988\" duration=\"536000\" />\r\n      <workItem from=\"1705842592150\" duration=\"3123000\" />\r\n      <workItem from=\"1705867168884\" duration=\"1365000\" />\r\n      <workItem from=\"1706272696959\" duration=\"5138000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"not working db\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1705686439581</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1705686439581</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"working db\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1705687608792</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1705687608792</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"citire din fisier db si fisier text\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1705845122120</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1705845122120</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"made log-in for student and professor\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1705925435048</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1705925435048</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"moved some functions and started menu\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1705926872972</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1705926872972</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"added some other functions for database and continued menu\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1705928518431</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1705928518431</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"added menu for the student in app.java, and showStudentsGrades in database.java\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1706005384161</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1706005384161</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00008\" summary=\"completed student menu\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1706273611020</created>\r\n      <option name=\"number\" value=\"00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1706273611020</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00009\" summary=\".\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1707244455922</created>\r\n      <option name=\"number\" value=\"00009\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1707244455922</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00010\" summary=\".\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1707246438261</created>\r\n      <option name=\"number\" value=\"00010\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00010\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1707246438261</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00011\" summary=\"started functions for student\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1707247958648</created>\r\n      <option name=\"number\" value=\"00011\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00011\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1707247958648</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00012\" summary=\"small change\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1707248107056</created>\r\n      <option name=\"number\" value=\"00012\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00012\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1707248107056</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00013\" summary=\"transfer from database to class Student successfully\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1707250018555</created>\r\n      <option name=\"number\" value=\"00013\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00013\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1707250018555</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"14\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State>\r\n              <option name=\"FILTERS\">\r\n                <map>\r\n                  <entry key=\"branch\">\r\n                    <value>\r\n                      <list>\r\n                        <option value=\"master\" />\r\n                      </list>\r\n                    </value>\r\n                  </entry>\r\n                </map>\r\n              </option>\r\n            </State>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"not working db\" />\r\n    <MESSAGE value=\"working db\" />\r\n    <MESSAGE value=\"citire din fisier db si fisier text\" />\r\n    <MESSAGE value=\"made log-in for student and professor\" />\r\n    <MESSAGE value=\"moved some functions and started menu\" />\r\n    <MESSAGE value=\"added some other functions for database and continued menu\" />\r\n    <MESSAGE value=\"added menu for the student in app.java, and showStudentsGrades in database.java\" />\r\n    <MESSAGE value=\"completed student menu\" />\r\n    <MESSAGE value=\".\" />\r\n    <MESSAGE value=\"started functions for student\" />\r\n    <MESSAGE value=\"small change\" />\r\n    <MESSAGE value=\"transfer from database to class Student successfully\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"transfer from database to class Student successfully\" />\r\n  </component>\r\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\r\n    <expand />\r\n    <select />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 26f39449c8309613c78d07761a382d078fdea4cf)
++++ b/.idea/workspace.xml	(date 1707264218061)
+@@ -4,15 +4,12 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="ed1e95a4-aedb-4c56-bdef-26614b70a25a" name="Changes" comment="transfer from database to class Student successfully">
++    <list default="true" id="ed1e95a4-aedb-4c56-bdef-26614b70a25a" name="Changes" comment="made som sortings for each student and the overall leaderboard(more to be done)">
++      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/NoteCatalog.p3u3-A/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/NoteCatalog.p3u3-A/schema/public.abK9xQ.meta" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2_6_2024_9_09_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2_6_2024_9_09_PM__Changes_.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/ProiectMIP.Wv1_zA/schema/information_schema.FNRwLQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/ProiectMIP.Wv1_zA/schema/information_schema.FNRwLQ.meta" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/ProiectMIP.Wv1_zA/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/ProiectMIP.Wv1_zA/schema/public.abK9xQ.meta" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/App.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Database.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Nota.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Nota.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Student.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -28,6 +25,8 @@
+   </component>
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++    <option name="RESET_MODE" value="MIXED" />
++    <option name="UPDATE_TYPE" value="REBASE" />
+   </component>
+   <component name="ProjectColorInfo">{
+   &quot;customColor&quot;: &quot;&quot;,
+@@ -176,7 +175,15 @@
+       <option name="project" value="LOCAL" />
+       <updated>1707250018555</updated>
+     </task>
+-    <option name="localTasksCounter" value="14" />
++    <task id="LOCAL-00014" summary="made som sortings for each student and the overall leaderboard(more to be done)">
++      <option name="closed" value="true" />
++      <created>1707263966867</created>
++      <option name="number" value="00014" />
++      <option name="presentableId" value="LOCAL-00014" />
++      <option name="project" value="LOCAL" />
++      <updated>1707263966867</updated>
++    </task>
++    <option name="localTasksCounter" value="15" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -218,7 +225,8 @@
+     <MESSAGE value="started functions for student" />
+     <MESSAGE value="small change" />
+     <MESSAGE value="transfer from database to class Student successfully" />
+-    <option name="LAST_COMMIT_MESSAGE" value="transfer from database to class Student successfully" />
++    <MESSAGE value="made som sortings for each student and the overall leaderboard(more to be done)" />
++    <option name="LAST_COMMIT_MESSAGE" value="made som sortings for each student and the overall leaderboard(more to be done)" />
+   </component>
+   <component name="XSLT-Support.FileAssociations.UIState">
+     <expand />
+Index: .idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/ProiectMIP.Wv1_zA/schema/public.abK9xQ.meta
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#n:public\r\n!<md> [10097, 0, null, null, -2147483648, -2147483648]\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/ProiectMIP.Wv1_zA/schema/public.abK9xQ.meta b/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/ProiectMIP.Wv1_zA/schema/public.abK9xQ.meta
+--- a/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/ProiectMIP.Wv1_zA/schema/public.abK9xQ.meta	(revision 26f39449c8309613c78d07761a382d078fdea4cf)
++++ b/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/ProiectMIP.Wv1_zA/schema/public.abK9xQ.meta	(date 1707263979192)
+@@ -1,2 +1,2 @@
+ #n:public
+-!<md> [10097, 0, null, null, -2147483648, -2147483648]
++!<md> [10126, 0, null, null, -2147483648, -2147483648]
+Index: .idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/ProiectMIP.Wv1_zA/schema/information_schema.FNRwLQ.meta
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#n:information_schema\r\n!<md> [10088, 0, null, null, -2147483648, -2147483648]\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/ProiectMIP.Wv1_zA/schema/information_schema.FNRwLQ.meta b/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/ProiectMIP.Wv1_zA/schema/information_schema.FNRwLQ.meta
+--- a/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/ProiectMIP.Wv1_zA/schema/information_schema.FNRwLQ.meta	(revision 26f39449c8309613c78d07761a382d078fdea4cf)
++++ b/.idea/dataSources/45b6348e-6083-400a-9e38-78e2f19fa12f/storage_v2/_src_/database/ProiectMIP.Wv1_zA/schema/information_schema.FNRwLQ.meta	(date 1707263979192)
+@@ -1,2 +1,2 @@
+ #n:information_schema
+-!<md> [10088, 0, null, null, -2147483648, -2147483648]
++!<md> [null, 0, null, null, -2147483648, -2147483648]
