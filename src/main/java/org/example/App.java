@@ -78,6 +78,7 @@ public class App {
                                                     System.out.println("Introduceti numele disciplinei disciplinei: ");
                                                     numeDisciplina = scanner.next();
                                                     student.showGradesForDiscipline(numeDisciplina);
+                                                    break;
                                                 case 2:
                                                     System.out.println("1.Sortare crescatoare");
                                                     System.out.println("2.Sortare descrescatoare");
@@ -90,16 +91,19 @@ public class App {
                                                             System.out.println("Introduceti numele disciplinei disciplinei: ");
                                                             numeDisciplina = scanner.next();
                                                             student.sortAllNotesAsceendingForADisciplineByDate(numeDisciplina);
+                                                            break;
                                                         case 2:
                                                             student.showDisciplinesWithGrades();
                                                             System.out.println("Introduceti numele disciplinei disciplinei: ");
                                                             numeDisciplina = scanner.next();
                                                             student.sortAllNotesDescendingForADisciplineByDate(numeDisciplina);
+                                                            break;
                                                         case 3:
                                                             break;
                                                         default:
                                                             System.out.println("Optiune invalida!");
                                                     }
+                                                    break;
                                                 case 3:
                                                     System.out.println("1.Sortare crescatoare");
                                                     System.out.println("2.Sortare descrescatoare");
@@ -112,16 +116,19 @@ public class App {
                                                             System.out.println("Introduceti numele disciplinei disciplinei: ");
                                                             numeDisciplina = scanner.next();
                                                             student.sortAllNotesAsceendingForADiscipline(numeDisciplina);
+                                                            break;
                                                         case 2:
                                                             student.showDisciplinesWithGrades();
                                                             System.out.println("Introduceti numele disciplinei disciplinei: ");
                                                             numeDisciplina = scanner.next();
                                                             student.sortAllNotesDescendingForADiscipline(numeDisciplina);
+                                                            break;
                                                         case 3:
                                                             break;
                                                         default:
                                                             System.out.println("Optiune invalida!");
                                                     }
+                                                    break;
                                                 case 4:
                                                     break;
                                                 default:
@@ -139,6 +146,7 @@ public class App {
                                             switch (optiune8){
                                                 case 1:
                                                     student.showAllGrades();
+                                                    break;
                                                 case 2:
                                                     System.out.println("1.Sortare crescatoare");
                                                     System.out.println("2.Sortare descrescatoare");
@@ -148,8 +156,10 @@ public class App {
                                                     switch (optiune6){
                                                         case 1:
                                                             student.sortAllNotesAsceendingByDate();
+                                                            break;
                                                         case 2:
                                                             student.sortAllNotesDescendingByDate();
+                                                            break;
                                                         case 3:
                                                             break;
                                                         default:
@@ -164,8 +174,10 @@ public class App {
                                                     switch (optiune7){
                                                         case 1:
                                                             student.sortAllNotesAsceending();
+                                                            break;
                                                         case 2:
                                                             student.sortAllNotesDescending();
+                                                            break;
                                                         case 3:
                                                             break;
                                                         default:
@@ -244,10 +256,12 @@ public class App {
                                     db.changePasswordStudent(id, newParola);
                                     System.out.println("Parola schimbata cu succes!");
                                     break;
+                                case 7:
+                                    System.out.println("Comanda efectuata cu succes!");
+                                    break;
                                 default:
                                     System.out.println("Optiune invalida!");
                             }
-
 
                             if (optiune3 == 7) {
                                 // iesire din meniu
