@@ -287,8 +287,12 @@ public class Student {
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 
         // Print out the leaderboard
-        System.out.println("Leaderboard for " + disciplina + ":");
-        sortedLeaderboard.forEach((k, v) -> System.out.println(k + " - " + v));
+        System.out.println("Leaderboard for disciplina " + disciplina + ":");
+        int rank = 1;
+        for (Map.Entry<String, Double> entry : sortedLeaderboard.entrySet()) {
+            System.out.println(rank + ". " + entry.getKey() + " - " + entry.getValue());
+            rank++;
+        }
     }
 
     public static void LeaderboardForSubjectForYear(List<Student> students, String disciplina, int an) {
@@ -318,8 +322,12 @@ public class Student {
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 
         // Print out the leaderboard
-        System.out.println("Leaderboard for " + disciplina + " for year " + an + ":");
-        sortedLeaderboard.forEach((k, v) -> System.out.println(k + " - " + v));
+        System.out.println("Leaderboard for year " + an +" and discipline: "+ disciplina + ":");
+        int rank = 1;
+        for (Map.Entry<String, Double> entry : sortedLeaderboard.entrySet()) {
+            System.out.println(rank + ". " + entry.getKey() + " - " + entry.getValue());
+            rank++;
+        }
     }
 
     public static void LeaderboardForYear(List<Student> students, int an) {
@@ -348,7 +356,11 @@ public class Student {
 
         // Print out the leaderboard
         System.out.println("Leaderboard for year " + an + ":");
-        sortedLeaderboard.forEach((k, v) -> System.out.println(k + " - " + v));
+        int rank = 1;
+        for (Map.Entry<String, Double> entry : sortedLeaderboard.entrySet()) {
+            System.out.println(rank + ". " + entry.getKey() + " - " + entry.getValue());
+            rank++;
+        }
     }
 
 }
