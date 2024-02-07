@@ -95,7 +95,8 @@ public class App {
                             System.out.println("2. Afisare medie finala curs");
                             System.out.println("3. Afisare lista studenti");
                             System.out.println("4. Adaugare disciplina");
-                            System.out.println("5. Exit");
+                            System.out.println("5. Modificare/Stergere nota student");
+                            System.out.println("6. Exit");
                             System.out.println("Introduceti optiunea: ");
                             int optiune4 = scanner.nextInt();
 
@@ -134,13 +135,83 @@ public class App {
                                 case 3:
                                     db.showProfesorDisciplines(profesorIDLogged);
                                     System.out.println("Introduceti id-ul disciplinei: ");
+                                    int idDisciplina3 = scanner.nextInt();
+                                    db.showStudents(idDisciplina3);
+                                    break;
+
                                 case 4:
                                     System.out.println("Introduceti numele disciplinei: ");
                                     String numeDisciplina = scanner.next();
                                     db.insertIntoDisciplina(db.getLastIDFromDisciplina() + 1, 0, profesorIDLogged, numeDisciplina);
                                     break;
-
                                 case 5:
+                                    System.out.println("A. Modificare nota");
+                                    System.out.println("B. Stergere nota");
+                                    System.out.println("Introduceti optiunea: ");
+                                    String optiune5 = scanner.next();
+                                    switch (optiune5){
+                                        case "A":
+                                            //modificare nota
+                                            db.showProfesorDisciplines(profesorIDLogged);
+                                            System.out.println("Introduceti id-ul disciplinei: ");
+                                            int idDisciplina5 = scanner.nextInt();
+                                            if (!db.checkIfProfesorTeachesDisciplina(idDisciplina5, profesorIDLogged)) {
+                                                System.out.println("Nu predati aceasta disciplina!");
+                                                break;
+                                            }
+                                            db.showStudents(idDisciplina5);
+                                            System.out.println("Introduceti id-ul studentului: ");
+                                            int idStudent5 = scanner.nextInt();
+                                            //verificare daca studentul exista
+                                            if (!db.checkIfStudentExists(idStudent5)) {
+                                                System.out.println("Studentul nu exista sau nu face parte din aceasta disciplina!");
+                                                break;
+                                            }
+                                            db.showStudentGrades(idStudent5);
+                                            System.out.println("Introduceti id-ul notei: ");
+                                            int idNota5 = scanner.nextInt();
+                                            System.out.println("Introduceti noua nota: ");
+                                            int nota5 = scanner.nextInt();
+                                            db.modificareNota(idStudent5,idDisciplina5,idNota5,nota5);
+                                            System.out.println("Nota a fost modificata cu succes!");
+                                            break;
+                                        case "B":
+                                            // Sterge nota
+                                            System.out.println("Stergere nota:");
+                                            db.showProfesorDisciplines(profesorIDLogged);
+                                            System.out.println("Introduceti id-ul disciplinei: ");
+                                            int idDisciplina5B = scanner.nextInt();
+
+                                            if (!db.checkIfProfesorTeachesDisciplina(idDisciplina5B, profesorIDLogged)) {
+                                                System.out.println("Nu predati aceasta disciplina!");
+                                                break;
+                                            }
+
+                                            db.showStudents();
+                                            System.out.println("Introduceti id-ul studentului: ");
+                                            int idStudent5B = scanner.nextInt();
+
+                                            if (!db.checkIfStudentExists(idStudent5B)) {
+                                                System.out.println("Studentul nu exista sau nu face parte din aceasta disciplina!");
+                                                break;
+                                            }
+                                            System.out.println("Notele studentului:");
+                                            db.showStudentGrades(idStudent5B);
+                                            System.out.println("Introduceti id-ul notei: ");
+                                            int idNota5B = scanner.nextInt();
+
+                                            // Sterge nota
+                                            db.stergeNota(idStudent5B,idDisciplina5B,idNota5B);
+
+                                            break;
+
+                                        default:
+                                            System.out.println("Optiune invalida!");
+                                            break;
+                                    }
+                                    break;
+
+                                case 6:
                                     System.out.println("Comanda efectuata cu succes!");
                                     break;
 
@@ -148,7 +219,7 @@ public class App {
                                     System.out.println("Optiune invalida!");
                             }
 
-                            if (optiune4 == 5) {
+                            if (optiune4 == 6) {
                                 // iesire din meniu
                                 System.out.println("Iesire din meniul profesor.");
                                 break;
