@@ -355,6 +355,24 @@ public class Database {
             System.out.println(e.getMessage());
         }
     }
+
+    public void showAllDisciplines() {
+        String sql = "SELECT \"Nume_disciplina\" FROM \"Disciplina\"";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+
+                    String numeDisciplina = rs.getString("Nume_disciplina");
+
+                    System.out.println("Nume disciplina: " + numeDisciplina);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public void showDisciplines(int studentId) {
         String sql = "SELECT D.\"Nume_disciplina\" AS Subject " +
                 "FROM \"Note\" N " +

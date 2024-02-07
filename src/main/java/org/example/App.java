@@ -12,7 +12,6 @@ public class App {
         Scanner scanner = new Scanner(System.in);
 
         List<Student> students = db.getAllStudents();
-        Student.LeaderboardForYear(students, 1);
 
         int profesorIDLogged = -1;
 
@@ -44,34 +43,213 @@ public class App {
                         // meniu student
                         while (true) {
                             Student student = db.sendStudentInfo(id);
-                            System.out.println("Nume: " + student.getNume());
-                            System.out.println(student.toString());
-
-                            System.out.println("1. Afisare note");
-                            System.out.println("2. Afisare medie");
-                            System.out.println("3. Afisare discipline");
-                            System.out.println("4. Exit");
+                            System.out.println("1. Afisare informatii student");
+                            System.out.println("2. Afisare note");
+                            System.out.println("3. Afisare medii");
+                            System.out.println("4. Afisare clasament");
+                            System.out.println("5. Schimbare username");
+                            System.out.println("6. Schimbare parola");
+                            System.out.println("7. Exit");
                             System.out.println("Introduceti optiunea: ");
                             int optiune3 = scanner.nextInt();
 
                             switch (optiune3) {
                                 case 1:
-                                    db.showStudentGrades(id);
+                                    student.showInfoAboutStudent();
                                     break;
                                 case 2:
-                                    db.showAverage(id);
-                                    break;
+                                    System.out.println("1.Afisare note pentru o disciplina");
+                                    System.out.println("2.Afisare toate notele");
+                                    System.out.println("3.Inapoi");
+                                    System.out.println("Introduceti optiunea: ");
+                                    int optiune4 = scanner.nextInt();
+                                    switch (optiune4){
+                                        case 1:
+                                            System.out.println("1.Afisare note nesortate");
+                                            System.out.println("2.Afisare note sortate dupa data");
+                                            System.out.println("3.Afisare note sortate dupa nota");
+                                            System.out.println("4.Inapoi");
+                                            System.out.println("Introduceti optiunea: ");
+                                            int optiune5 = scanner.nextInt();
+                                            String numeDisciplina;
+                                            switch (optiune5){
+                                                case 1:
+                                                    student.showDisciplinesWithGrades();
+                                                    System.out.println("Introduceti numele disciplinei disciplinei: ");
+                                                    numeDisciplina = scanner.next();
+                                                    student.showGradesForDiscipline(numeDisciplina);
+                                                case 2:
+                                                    System.out.println("1.Sortare crescatoare");
+                                                    System.out.println("2.Sortare descrescatoare");
+                                                    System.out.println("3.Inapoi");
+                                                    System.out.println("Introduceti optiunea: ");
+                                                    int optiune6 = scanner.nextInt();
+                                                    switch (optiune6){
+                                                        case 1:
+                                                            student.showDisciplinesWithGrades();
+                                                            System.out.println("Introduceti numele disciplinei disciplinei: ");
+                                                            numeDisciplina = scanner.next();
+                                                            student.sortAllNotesAsceendingForADisciplineByDate(numeDisciplina);
+                                                        case 2:
+                                                            student.showDisciplinesWithGrades();
+                                                            System.out.println("Introduceti numele disciplinei disciplinei: ");
+                                                            numeDisciplina = scanner.next();
+                                                            student.sortAllNotesDescendingForADisciplineByDate(numeDisciplina);
+                                                        case 3:
+                                                            break;
+                                                        default:
+                                                            System.out.println("Optiune invalida!");
+                                                    }
+                                                case 3:
+                                                    System.out.println("1.Sortare crescatoare");
+                                                    System.out.println("2.Sortare descrescatoare");
+                                                    System.out.println("3.Inapoi");
+                                                    System.out.println("Introduceti optiunea: ");
+                                                    int optiune7 = scanner.nextInt();
+                                                    switch (optiune7){
+                                                        case 1:
+                                                            student.showDisciplinesWithGrades();
+                                                            System.out.println("Introduceti numele disciplinei disciplinei: ");
+                                                            numeDisciplina = scanner.next();
+                                                            student.sortAllNotesAsceendingForADiscipline(numeDisciplina);
+                                                        case 2:
+                                                            student.showDisciplinesWithGrades();
+                                                            System.out.println("Introduceti numele disciplinei disciplinei: ");
+                                                            numeDisciplina = scanner.next();
+                                                            student.sortAllNotesDescendingForADiscipline(numeDisciplina);
+                                                        case 3:
+                                                            break;
+                                                        default:
+                                                            System.out.println("Optiune invalida!");
+                                                    }
+                                                case 4:
+                                                    break;
+                                                default:
+                                                    System.out.println("Optiune invalida!");
+                                            }
+                                            break;
+                                        case 2:
+                                            System.out.println("1.Afisare note nesortate");
+                                            System.out.println("2.Afisare note sortate dupa data");
+                                            System.out.println("3.Afisare note sortate dupa nota");
+                                            System.out.println("4.Inapoi");
+                                            System.out.println("Introduceti optiunea: ");
+                                            int optiune8 = scanner.nextInt();
+                                            String numeDisciplina2;
+                                            switch (optiune8){
+                                                case 1:
+                                                    student.showAllGrades();
+                                                case 2:
+                                                    System.out.println("1.Sortare crescatoare");
+                                                    System.out.println("2.Sortare descrescatoare");
+                                                    System.out.println("3.Inapoi");
+                                                    System.out.println("Introduceti optiunea: ");
+                                                    int optiune6 = scanner.nextInt();
+                                                    switch (optiune6){
+                                                        case 1:
+                                                            student.sortAllNotesAsceendingByDate();
+                                                        case 2:
+                                                            student.sortAllNotesDescendingByDate();
+                                                        case 3:
+                                                            break;
+                                                        default:
+                                                            System.out.println("Optiune invalida!");
+                                                    }
+                                                case 3:
+                                                    System.out.println("1.Sortare crescatoare");
+                                                    System.out.println("2.Sortare descrescatoare");
+                                                    System.out.println("3.Inapoi");
+                                                    System.out.println("Introduceti optiunea: ");
+                                                    int optiune7 = scanner.nextInt();
+                                                    switch (optiune7){
+                                                        case 1:
+                                                            student.sortAllNotesAsceending();
+                                                        case 2:
+                                                            student.sortAllNotesDescending();
+                                                        case 3:
+                                                            break;
+                                                        default:
+                                                            System.out.println("Optiune invalida!");
+                                                    }
+                                                case 4:
+                                                    break;
+                                                default:
+                                                    System.out.println("Optiune invalida!");
+                                            }
+                                            break;
+                                        case 3:
+                                            break;
+                                        default:
+                                            System.out.println("Optiune invalida!");
+                                    }
+
                                 case 3:
-                                    db.showDisciplines(id);
+                                    System.out.println("1.Afisare medii la fiecare disciplina disciplina");
+                                    System.out.println("2.Afisare medie generala");
+                                    System.out.println("3.Inapoi");
+                                    System.out.println("Introduceti optiunea: ");
+                                    int optiune9 = scanner.nextInt();
+                                    switch(optiune9){
+                                        case 1:
+                                            student.showAvarageForAllDisciplines();
+                                            break;
+                                        case 2:
+                                            student.showAverageOverAllBasedOnDisciplineAvarage();
+                                            break;
+                                        case 3:
+                                            break;
+                                        default:
+                                            System.out.println("Optiune invalida!");
+                                    }
                                     break;
                                 case 4:
-                                    System.out.println("Comanda efectuata cu succes!");
+                                    System.out.println("1.Clasament pe an");
+                                    System.out.println("2.Clasament pe an si disciplina");
+                                    System.out.println("3.Inapoi");
+                                    System.out.println("Introduceti optiunea: ");
+                                    int optiune10 = scanner.nextInt();
+                                    switch(optiune10){
+                                        case 1:
+                                            System.out.println("Introduceti anul: ");
+                                            int an = scanner.nextInt();
+                                            Student.LeaderboardForYear(students, an);
+                                            break;
+                                        case 2:
+                                            System.out.println("Introduceti anul: ");
+                                            int an2 = scanner.nextInt();
+                                            db.showAllDisciplines();
+                                            System.out.println("Introduceti numele disciplinei: ");
+                                            String numeDisciplina = scanner.next();
+                                            Student.LeaderboardForSubjectForYear(students, numeDisciplina, an2);
+                                            break;
+                                        case 3:
+                                            break;
+                                        default:
+                                            System.out.println("Optiune invalida!");
+                                    }
+                                    break;
+                                case 5:
+                                    System.out.println("Introduceti noul username: ");
+                                    String newUsername = scanner.next();
+                                    if (db.checkIfUsernameExists(newUsername)) {
+                                        System.out.println("Username-ul exista deja!");
+                                    } else {
+                                        db.changeUsernameStudent(id, newUsername);
+                                        System.out.println("Username schimbat cu succes!");
+                                    }
+                                    break;
+                                case 6:
+                                    System.out.println("Introduceti noua parola: ");
+                                    String newParola = scanner.next();
+                                    db.changePasswordStudent(id, newParola);
+                                    System.out.println("Parola schimbata cu succes!");
                                     break;
                                 default:
                                     System.out.println("Optiune invalida!");
                             }
 
-                            if (optiune3 == 4) {
+
+                            if (optiune3 == 7) {
                                 // iesire din meniu
                                 System.out.println("Iesire din meniul student.");
                                 break;

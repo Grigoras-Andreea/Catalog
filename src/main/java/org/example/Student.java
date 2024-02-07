@@ -78,6 +78,15 @@ public class Student {
         return sb.toString();
     }
 
+    public void showInfoAboutStudent() {
+        System.out.println(this.nume + " " + this.prenume);
+        System.out.println("An: " + this.an);
+    }
+
+    public void showAllGrades() {
+        note.forEach(System.out::println);
+    }
+
     public void showDisciplinesWithGrades() {
         // Create a set to store unique disciplines
         Set<String> disciplines = new HashSet<>();
@@ -293,6 +302,8 @@ public class Student {
             System.out.println(rank + ". " + entry.getKey() + " - " + entry.getValue());
             rank++;
         }
+        System.out.println("\n\n");
+        System.out.println("--------------------------------");
     }
 
     public static void LeaderboardForSubjectForYear(List<Student> students, String disciplina, int an) {
@@ -328,6 +339,8 @@ public class Student {
             System.out.println(rank + ". " + entry.getKey() + " - " + entry.getValue());
             rank++;
         }
+        System.out.println("\n\n");
+        System.out.println("--------------------------------");
     }
 
     public static void LeaderboardForYear(List<Student> students, int an) {
@@ -361,6 +374,8 @@ public class Student {
             System.out.println(rank + ". " + entry.getKey() + " - " + entry.getValue());
             rank++;
         }
+        System.out.println("\n\n");
+        System.out.println("--------------------------------");
     }
 
 }
