@@ -593,6 +593,58 @@ public class Database {
         }
         return studentList;
     }
+
+    public void changeUsernameStudent(int id, String newUsername) {
+        String sql = "UPDATE \"Student\" SET \"Username\" = ? WHERE \"ID_Student\" = ?";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, newUsername);
+            pstmt.setInt(2, id);
+
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void changePasswordStudent(int id, String newPassword) {
+        String sql = "UPDATE \"Student\" SET \"Parola\" = ? WHERE \"ID_Student\" = ?";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, newPassword);
+            pstmt.setInt(2, id);
+
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void changeUsernameProfesor(int id, String newUsername) {
+        String sql = "UPDATE \"Profesor\" SET \"Username\" = ? WHERE \"ID_Profesor\" = ?";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, newUsername);
+            pstmt.setInt(2, id);
+
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void changePasswordProfesor(int id, String newPassword) {
+        String sql = "UPDATE \"Profesor\" SET \"Parola\" = ? WHERE \"ID_Profesor\" = ?";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, newPassword);
+            pstmt.setInt(2, id);
+
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
 
 
