@@ -5,12 +5,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Database {
-    final String url = "jdbc:postgresql://localhost:5432/NoteCatalog" ;
+    final String url = "jdbc:postgresql://localhost:5432/ProiectMIP" ;
     final String user = "postgres";
     final String password = "1q2w3e";
 
@@ -467,7 +468,7 @@ public class Database {
             System.out.println(e.getMessage());
         }
     }
-    public void showStudents(int idDisciplina) {
+    public void showStudentsSorted(int idDisciplina) {
         String sql = "SELECT S.\"ID_Student\", S.\"Nume\" AS Nume, S.\"Prenume\" AS Prenume " +
                 "FROM \"Note\" N " +
                 "JOIN \"Student\" S ON N.\"ID_Student\" = S.\"ID_Student\" " +
@@ -492,13 +493,14 @@ public class Database {
 
         System.out.println("Studenti:");
 
-        // Utilizare stream pentru sortare alfabetică
+        // Utilizare stream pentru sortare alfabetică după nume
         List<String> studentiSortati = studentList.stream()
-                .sorted()
+                .sorted(Comparator.comparing(s -> s.split(", ")[1]))  // Sortare după nume
                 .collect(Collectors.toList());
 
         studentiSortati.forEach(System.out::println);
     }
+
 
 
     public void showProfesorDisciplines(int profesorId) {
