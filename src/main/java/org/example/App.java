@@ -314,7 +314,13 @@ public class App {
                                     db.showProfesorDisciplines(profesorIDLogged);
                                     System.out.println("Introduceti id-ul disciplinei: ");
                                     int idDisciplina3 = scanner.nextInt();
-                                    db.showStudents(idDisciplina3);
+                                    System.out.println("doriti sa fie sortati alfabetic? (da/nu)");
+                                    String word = scanner.next();
+                                    if(word.equals("da")){
+                                        db.showStudentsSorted(idDisciplina3);
+                                    }else{
+                                        db.showStudents();
+                                    }
                                     break;
 
                                 case 4:
@@ -337,7 +343,7 @@ public class App {
                                                 System.out.println("Nu predati aceasta disciplina!");
                                                 break;
                                             }
-                                            db.showStudents(idDisciplina5);
+                                            db.showStudentsSorted(idDisciplina5);
                                             System.out.println("Introduceti id-ul studentului: ");
                                             int idStudent5 = scanner.nextInt();
                                             //verificare daca studentul exista
@@ -365,7 +371,7 @@ public class App {
                                                 break;
                                             }
 
-                                            db.showStudents();
+                                            db.showStudentsSorted(idDisciplina5B);
                                             System.out.println("Introduceti id-ul studentului: ");
                                             int idStudent5B = scanner.nextInt();
 
