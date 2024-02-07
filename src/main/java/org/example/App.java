@@ -196,9 +196,9 @@ public class App {
                                         default:
                                             System.out.println("Optiune invalida!");
                                     }
-
+                                    break;
                                 case 3:
-                                    System.out.println("1.Afisare medii la fiecare disciplina disciplina");
+                                    System.out.println("1.Afisare medii la fiecare disciplina");
                                     System.out.println("2.Afisare medie generala");
                                     System.out.println("3.Inapoi");
                                     System.out.println("Introduceti optiunea: ");

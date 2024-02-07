@@ -88,15 +88,15 @@ public class Student {
     }
 
     public void showDisciplinesWithGrades() {
-        // Create a set to store unique disciplines
+
         Set<String> disciplines = new HashSet<>();
 
-        // Iterate through the list of grades and add discipline names to the set
+
         for (Nota nota : note) {
             disciplines.add(nota.getNumeDisciplina());
         }
 
-        // Print out the unique discipline names
+
         System.out.println("Disciplines: ");
         for (String discipline : disciplines) {
             System.out.println(discipline);
@@ -104,122 +104,122 @@ public class Student {
     }
 
     public void sortAllNotesDescending() {
-        // Sorting the note list based on the grade in descending order using streams
+
         List<Nota> sortedGrades = note.stream()
                 .sorted(Comparator.comparingInt(Nota::getNota).reversed())
                 .collect(Collectors.toList());
 
-        // Printing each sorted Nota object
+
         sortedGrades.forEach(System.out::println);
-    }//gata
+    }
 
     public void sortAllNotesAsceending() {
-        // Sorting the note list based on the grade in descending order using streams
+
         List<Nota> sortedGrades = note.stream()
                 .sorted(Comparator.comparingInt(Nota::getNota))
                 .collect(Collectors.toList());
 
-        // Printing each sorted Nota object
+
         sortedGrades.forEach(System.out::println);
-    }//gata
+    }
 
     public void sortAllNotesDescendingForADiscipline(String disciplina) {
-        // Sorting the note list based on the grade in descending order using streams
+
 
         List<Nota> filteredNotes = note.stream()
                 .filter(n -> n.getNumeDisciplina().equals(disciplina)) // Filter notes by discipline
                 .sorted(Comparator.comparingInt(Nota::getNota).reversed()) // Sort filtered notes by grade in descending order
                 .collect(Collectors.toList());
 
-        // Printing each sorted Nota object
+
         filteredNotes.forEach(System.out::println);
     }
 
     public void sortAllNotesAsceendingForADiscipline(String disciplina) {
-        // Sorting the note list based on the grade in descending order using streams
+
         List<Nota> filteredNotes = note.stream()
                 .filter(n -> n.getNumeDisciplina().equals(disciplina)) // Filter notes by discipline
                 .sorted(Comparator.comparingInt(Nota::getNota)) // Sort filtered notes by grade in descending order
                 .collect(Collectors.toList());
 
-        // Printing each sorted Nota object
+
         filteredNotes.forEach(System.out::println);
     }
 
     public void sortAllNotesDescendingByDate() {
-        // Sorting the note list based on the grade in descending order using streams
+
         List<Nota> sortedGrades = note.stream()
                 .sorted(Comparator.comparing(Nota::getDate).reversed())
                 .collect(Collectors.toList());
 
-        // Printing each sorted Nota object
+
         sortedGrades.forEach(System.out::println);
     }
 
     public void sortAllNotesAsceendingByDate() {
-        // Sorting the note list based on the grade in descending order using streams
+
         List<Nota> sortedGrades = note.stream()
                 .sorted(Comparator.comparing(Nota::getDate))
                 .collect(Collectors.toList());
 
-        // Printing each sorted Nota object
+
         sortedGrades.forEach(System.out::println);
     }
 
     public void sortAllNotesDescendingForADisciplineByDate(String disciplina) {
-        // Sorting the note list based on the grade in descending order using streams
+
         List<Nota> sortedGrades = note.stream()
                 .filter(n -> n.getNumeDisciplina().equals(disciplina))
                 .sorted(Comparator.comparing(Nota::getDate).reversed())
                 .collect(Collectors.toList());
 
-        // Printing each sorted Nota object
+
         sortedGrades.forEach(System.out::println);
     }
 
     public void sortAllNotesAsceendingForADisciplineByDate(String disciplina) {
-        // Sorting the note list based on the grade in descending order using streams
+
         List<Nota> sortedGrades = note.stream()
                 .filter(n -> n.getNumeDisciplina().equals(disciplina))
                 .sorted(Comparator.comparing(Nota::getDate).reversed())
                 .collect(Collectors.toList());
 
-        // Printing each sorted Nota object
+
         sortedGrades.forEach(System.out::println);
     }
 
     public void sortAllNotesDescendingByDisciplina() {
-        // Sorting the note list based on the grade in descending order using streams
+
         List<Nota> sortedGrades = note.stream()
                 .sorted(Comparator.comparing(Nota::getNumeDisciplina).reversed())
                 .collect(Collectors.toList());
 
-        // Printing each sorted Nota object
+
         sortedGrades.forEach(System.out::println);
     }
 
     public void sortAllNotesAsceendingByDisciplina() {
-        // Sorting the note list based on the grade in descending order using streams
+
         List<Nota> sortedGrades = note.stream()
                 .sorted(Comparator.comparing(Nota::getNumeDisciplina))
                 .collect(Collectors.toList());
 
-        // Printing each sorted Nota object
+
         sortedGrades.forEach(System.out::println);
     }
 
     public void showGradesForDiscipline(String disciplina) {
-        // Filtering the note list based on the discipline using streams
+
         List<Nota> filteredNotes = note.stream()
                 .filter(n -> n.getNumeDisciplina().equals(disciplina))
                 .collect(Collectors.toList());
 
-        // Printing each filtered Nota object
+
         filteredNotes.forEach(System.out::println);
     }
 
     public void showAvarageForDiscipline(String disciplina) {
-        // Filtering the note list based on the discipline using streams
+
         List<Nota> filteredNotes = note.stream()
                 .filter(n -> n.getNumeDisciplina().equals(disciplina))
                 .collect(Collectors.toList());
@@ -231,10 +231,10 @@ public class Student {
     }
 
     public void showAvarageForAllDisciplines() {
-        // Create a set to store unique disciplines
+
         Set<String> disciplines = new HashSet<>();
 
-        // Iterate through the list of grades and add discipline names to the set
+
         for (Nota nota : note) {
             disciplines.add(nota.getNumeDisciplina());
         }
@@ -244,7 +244,7 @@ public class Student {
     }
 
     private Double avarageForEachDiscipline(String disciplina) {
-        // Filtering the note list based on the discipline using streams
+
         List<Nota> filteredNotes = note.stream()
                 .filter(n -> n.getNumeDisciplina().equals(disciplina))
                 .collect(Collectors.toList());
@@ -272,10 +272,10 @@ public class Student {
     }
 
     public static void LeaderboardForSubject(List<Student> students, String disciplina) {
-        // Create a map to store the student's name and their average grade for the given discipline
+
         Map<String, Double> leaderboard = new HashMap<>();
 
-        // Iterate through the list of students and calculate the average grade for the given discipline
+
         for (Student student : students) {
             Double sum = (double) 0;
             int count = 0;
@@ -290,12 +290,12 @@ public class Student {
             }
         }
 
-        // Sort the leaderboard by average grade in descending order
+
         Map<String, Double> sortedLeaderboard = leaderboard.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 
-        // Print out the leaderboard
+
         System.out.println("Leaderboard for disciplina " + disciplina + ":");
         int rank = 1;
         for (Map.Entry<String, Double> entry : sortedLeaderboard.entrySet()) {
@@ -307,10 +307,10 @@ public class Student {
     }
 
     public static void LeaderboardForSubjectForYear(List<Student> students, String disciplina, int an) {
-        // Create a map to store the student's name and their average grade for the given discipline
+
         Map<String, Double> leaderboard = new HashMap<>();
 
-        // Iterate through the list of students and calculate the average grade for the given discipline
+
         for (Student student : students) {
             if (student.getAn() == an) {
                 Double sum = (double) 0;
@@ -327,12 +327,12 @@ public class Student {
             }
         }
 
-        // Sort the leaderboard by average grade in descending order
+
         Map<String, Double> sortedLeaderboard = leaderboard.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 
-        // Print out the leaderboard
+
         System.out.println("Leaderboard for year " + an +" and discipline: "+ disciplina + ":");
         int rank = 1;
         for (Map.Entry<String, Double> entry : sortedLeaderboard.entrySet()) {
@@ -344,10 +344,10 @@ public class Student {
     }
 
     public static void LeaderboardForYear(List<Student> students, int an) {
-        // Create a map to store the student's name and their average grade for the given discipline
+
         Map<String, Double> leaderboard = new HashMap<>();
 
-        // Iterate through the list of students and calculate the average grade for the given discipline
+
         for (Student student : students) {
             if (student.getAn() == an) {
                 Double sum = (double) 0;
@@ -362,12 +362,12 @@ public class Student {
             }
         }
 
-        // Sort the leaderboard by average grade in descending order
+
         Map<String, Double> sortedLeaderboard = leaderboard.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 
-        // Print out the leaderboard
+
         System.out.println("Leaderboard for year " + an + ":");
         int rank = 1;
         for (Map.Entry<String, Double> entry : sortedLeaderboard.entrySet()) {
