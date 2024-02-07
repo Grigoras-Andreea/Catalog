@@ -165,6 +165,7 @@ public class App {
                                                         default:
                                                             System.out.println("Optiune invalida!");
                                                     }
+                                                    break;
                                                 case 3:
                                                     System.out.println("1.Sortare crescatoare");
                                                     System.out.println("2.Sortare descrescatoare");
@@ -183,6 +184,7 @@ public class App {
                                                         default:
                                                             System.out.println("Optiune invalida!");
                                                     }
+                                                    break;
                                                 case 4:
                                                     break;
                                                 default:
@@ -288,7 +290,9 @@ public class App {
                             System.out.println("3. Afisare lista studenti");
                             System.out.println("4. Adaugare disciplina");
                             System.out.println("5. Modificare/Stergere nota student");
-                            System.out.println("6. Exit");
+                            System.out.println("6. Schimbare username");
+                            System.out.println("7. Schimbare parola");
+                            System.out.println("8. Exit");
                             System.out.println("Introduceti optiunea: ");
                             int optiune4 = scanner.nextInt();
 
@@ -402,8 +406,24 @@ public class App {
                                             break;
                                     }
                                     break;
-
                                 case 6:
+                                    System.out.println("Introduceti noul username: ");
+                                    String newUsername = scanner.next();
+                                    if (db.checkIfUsernameExists(newUsername)) {
+                                        System.out.println("Username-ul exista deja!");
+                                    } else {
+                                        db.changeUsernameProfesor(profesorIDLogged, newUsername);
+                                        System.out.println("Username schimbat cu succes!");
+                                    }
+                                    break;
+                                case 7:
+                                    System.out.println("Introduceti noua parola: ");
+                                    String newParola = scanner.next();
+                                    db.changePasswordProfesor(profesorIDLogged, newParola);
+                                    System.out.println("Parola schimbata cu succes!");
+                                    break;
+
+                                case 8:
                                     System.out.println("Comanda efectuata cu succes!");
                                     break;
 
@@ -411,7 +431,7 @@ public class App {
                                     System.out.println("Optiune invalida!");
                             }
 
-                            if (optiune4 == 6) {
+                            if (optiune4 == 8) {
                                 // iesire din meniu
                                 System.out.println("Iesire din meniul profesor.");
                                 break;
